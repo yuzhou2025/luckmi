@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luckmi 乐祺名 · P0-P2 细化执行策略</title>
+  <style>
+    :root {
+      --bg: #F8F4EC;
+      --bg-deep: #F0E9DC;
+      --ink: #1B1712;
+      --ink-soft: #4A4238;
+      --ink-muted: #7B7164;
+      --gold: #B9975B;
+      --gold-light: #D4BC8C;
+      --gold-dark: #8B7341;
+      --card: #FFFFFF;
+      --line: #E5DDCF;
+      --success: #5B8C5A;
+      --warning: #C48E3B;
+      --danger: #A8423C;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .hero {
+      background: linear-gradient(135deg, #1B1712 0%, #2D261E 50%, #1B1712 100%);
+      color: #fff;
+      padding: 80px 40px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(185, 151, 91, 0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .brand-tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      border: 1px solid var(--gold);
+      padding: 6px 16px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .hero h1 strong {
+      color: var(--gold-light);
+      font-weight: 400;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      font-weight: 300;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(185, 151, 91, 0.3);
+    }
+    .stat-num {
+      font-size: 32px;
+      color: var(--gold-light);
+      font-weight: 300;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 1px;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .section-title .num {
+      font-size: 14px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      border: 1px solid var(--gold);
+      padding: 4px 12px;
+    }
+    .section-title h2 {
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 400;
+      color: var(--ink);
+    }
+    .section-title .line {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+
+    /* Strategy Overview */
+    .strategy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+    .strategy-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .strategy-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(27, 23, 18, 0.08);
+    }
+    .strategy-card .icon {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-dark);
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .strategy-card h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .strategy-card p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.8;
+    }
+
+    /* Phase Timeline */
+    .phases {
+      position: relative;
+      padding: 20px 0;
+    }
+    .phases::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 40px;
+      bottom: 40px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--gold-light), var(--line));
+    }
+
+    .phase {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .phase:last-child { margin-bottom: 0; }
+
+    .phase-dot {
+      width: 56px;
+      height: 56px;
+      background: var(--bg);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gold-dark);
+      z-index: 1;
+      position: relative;
+    }
+    .phase.active .phase-dot {
+      background: var(--gold);
+      color: #fff;
+      box-shadow: 0 0 0 6px rgba(185, 151, 91, 0.15);
+    }
+
+    .phase-content {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 32px;
+    }
+    .phase.active .phase-content {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(185, 151, 91, 0.1);
+    }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .phase-header h3 {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .phase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 4px 12px;
+      background: var(--bg-deep);
+      color: var(--ink-soft);
+      letter-spacing: 0.5px;
+    }
+    .phase.active .phase-badge {
+      background: rgba(185, 151, 91, 0.15);
+      color: var(--gold-dark);
+    }
+
+    .phase-goal {
+      font-size: 15px;
+      color: var(--ink-soft);
+      padding: 16px 20px;
+      background: var(--bg-deep);
+      border-left: 3px solid var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .phase-subtitle {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      margin-top: 24px;
+    }
+    .phase-subtitle:first-child { margin-top: 0; }
+
+    .task-list {
+      list-style: none;
+      margin-bottom: 16px;
+    }
+    .task-list li {
+      padding: 10px 0;
+      padding-left: 24px;
+      position: relative;
+      font-size: 14px;
+      color: var(--ink-soft);
+      border-bottom: 1px solid var(--line);
+    }
+    .task-list li:last-child { border-bottom: none; }
+    .task-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 18px;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+    }
+    .task-list li .task-tag {
+      display: inline-block;
+      font-size: 11px;
+      padding: 2px 8px;
+      margin-left: 8px;
+      border-radius: 0;
+    }
+    .tag-frontend { background: #E8F0FE; color: #1a73e8; }
+    .tag-backend { background: #E6F4EA; color: #137333; }
+    .tag-ai { background: #FCE8F3; color: #c2185b; }
+    .tag-payment { background: #FEF7E0; color: #b06000; }
+    .tag-marketing { background: #F3E8FD; color: #7b1fa2; }
+    .tag-ops { background: #E0F2F1; color: #00695c; }
+    .tag-must { color: var(--danger); font-weight: 500; }
+
+    /* Deliverable Table */
+    .deliver-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 16px;
+    }
+    .deliver-table th {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--bg-deep);
+      color: var(--ink-soft);
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--line);
+    }
+    .deliver-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft);
+    }
+    .deliver-table tr:last-child td { border-bottom: none; }
+
+    /* Tech Stack */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .tech-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .tech-item .tech-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .tech-item .tech-role {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+    .tech-item .tech-cost {
+      font-size: 12px;
+      color: var(--gold-dark);
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* i18n Section */
+    .i18n-block {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 32px;
+      margin-bottom: 40px;
+    }
+    .i18n-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      margin-top: 20px;
+    }
+    .i18n-col h4 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+    }
+    .i18n-list {
+      list-style: none;
+    }
+    .i18n-list li {
+      padding: 8px 0;
+      font-size: 14px;
+      color: var(--ink-soft);
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--line);
+    }
+    .i18n-list li span:first-child { color: var(--ink-muted); }
+
+    /* Risk & Milestone */
+    .milestone-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 768px) {
+      .milestone-wrap { grid-template-columns: 1fr; }
+    }
+    .milestone-card, .risk-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 28px;
+    }
+    .milestone-card h4, .risk-card h4 {
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+    .milestone-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .milestone-item:last-child { border-bottom: none; }
+    .milestone-item .date {
+      color: var(--gold-dark);
+      font-weight: 500;
+    }
+
+    .risk-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .risk-item:last-child { border-bottom: none; }
+    .risk-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .risk-level {
+      font-size: 11px;
+      padding: 2px 8px;
+      color: #fff;
+    }
+    .risk-high { background: var(--danger); }
+    .risk-mid { background: var(--warning); }
+    .risk-low { background: var(--success); }
+    .risk-desc {
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+
+    /* Footer */
+    .footer {
+      background: #1B1712;
+      color: rgba(255,255,255,0.6);
+      padding: 40px;
+      text-align: center;
+      font-size: 13px;
+    }
+    .footer .brand {
+      color: var(--gold-light);
+      font-size: 18px;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--gold);
+      padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+    .toc h3 {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      margin-bottom: 16px;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+    .toc ol li {
+      counter-increment: toc-counter;
+      padding: 8px 0;
+      font-size: 14px;
+      border-bottom: 1px dashed var(--line);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .toc ol li:last-child { border-bottom: none; }
+    .toc ol li::before {
+      content: counter(toc-counter, decimal-leading-zero);
+      color: var(--gold);
+      font-weight: 500;
+      margin-right: 12px;
+    }
+    .toc ol li:hover { color: var(--gold-dark); }
+
+    @media (max-width: 640px) {
+      .hero { padding: 48px 24px 40px; }
+      .container { padding: 40px 20px; }
+      .phase { grid-template-columns: 44px 1fr; gap: 20px; }
+      .phase-dot { width: 44px; height: 44px; font-size: 12px; }
+      .phases::before { left: 22px; }
+      .phase-content { padding: 20px; }
+    }
+
+    @media print {
+      .hero { background: #1B1712 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .strategy-card, .phase-content, .tech-item, .i18n-block, .milestone-card, .risk-card, .toc { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="brand-tag">LUCKMI · 乐祺名</div>
+      <h1>海外八字起名应用<br><strong>P0 – P2 细化执行策略</strong></h1>
+      <p class="hero-sub">从 MVP 验证到产品化落地的完整路径。全 Serverless 架构、中英双语、渐进式上线。</p>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">核心阶段 P0 / P1 / P2</div>
+        </div>
+        <div>
+          <div class="stat-num">≈14天</div>
+          <div class="stat-label">P0-P2 总周期</div>
+        </div>
+        <div>
+          <div class="stat-num">$0→$200</div>
+          <div class="stat-label">月成本区间</div>
+        </div>
+        <div>
+          <div class="stat-num">6个</div>
+          <div class="stat-label">SKU 商业化矩阵</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- TOC -->
+    <nav class="toc" id="toc">
+      <h3>目录导航</h3>
+      <ol>
+        <li data-target="strategy">整体策略与市场定位</li>
+        <li data-target="p0">P0 阶段：MVP 核心链路（2天）</li>
+        <li data-target="p1">P1 阶段：会员体系与 SEO 基建（5天）</li>
+        <li data-target="p2">P2 阶段：产品化与增长引擎（7天）</li>
+        <li data-target="i18n">中英双语全局架构</li>
+        <li data-target="tech">技术架构与成本</li>
+        <li data-target="milestone">里程碑与风险</li>
+      </ol>
+    </nav>
+
+    <!-- Section 1: Strategy -->
+    <section id="strategy">
+      <div class="section-title">
+        <span class="num">01</span>
+        <h2>整体策略与市场定位</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="strategy-grid">
+        <div class="strategy-card">
+          <div class="icon">◈</div>
+          <h3>市场空白切入点</h3>
+          <p>海外八字起名市场被两类玩家占据：纯中文命理站（中国人用）、纯英文星座/塔罗站（西方人用）。中英双语的专业八字起名是稀缺品类，海外华人和对东方玄学感兴趣的西方人是核心双客群。</p>
+        </div>
+        <div class="strategy-card">
+          <div class="icon">◇</div>
+          <h3>产品形态决策</h3>
+          <p>优先网页端 + PWA，跳过原生 App。原因：八字起名低频场景（用一次就走）、网页获客成本远低于 App Store、海外用户习惯 Web 工具、PWA 可覆盖 80% 的 App 体验。</p>
+        </div>
+        <div class="strategy-card">
+          <div class="icon">◆</div>
+          <h3>商业化节奏</h3>
+          <p>P0 单次付费验证（$2.99 首单）→ P1 会员订阅（$9.99/月）→ P2 高客单报告（$49/$169）+ 专家咨询（$98/30min）。从轻到重，逐步抬升客单价和 LTV。</p>
+        </div>
+        <div class="strategy-card">
+          <div class="icon">◉</div>
+          <h3>增长策略</h3>
+          <p>SEO 内容矩阵为核心（100+ 名字详情页 + 生肖页 + 博客），配合 TikTok/Instagram 短视频引流，邮件订阅做留存。不靠广告投放，靠内容复利增长。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: P0 -->
+    <section id="p0">
+      <div class="section-title">
+        <span class="num">02</span>
+        <h2>P0 阶段：MVP 核心链路</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="phases">
+        <div class="phase active">
+          <div class="phase-dot">P0</div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <h3>最小可用产品 · 核心验证</h3>
+              <span class="phase-badge">⏱ 约 2 天 · 开发中</span>
+            </div>
+            <div class="phase-goal">
+              <strong>目标：</strong>跑通「八字输入 → AI 排盘 → 起名推荐 → 支付 → 交付结果」完整链路，验证用户付费意愿。
+              <br><strong>核心指标：</strong>支付转化率 ≥ 3%，首单成本 &lt; $1.5
+            </div>
+
+            <div class="phase-subtitle">2.1 前端页面（Day 1）</div>
+            <ul class="task-list">
+              <li>落地页 / 首页：品牌介绍 + 功能价值 + 定价 + 立即起名 CTA <span class="task-tag tag-frontend">前端</span></li>
+              <li>八字输入表单：出生年月日时 + 性别 + 出生地区（时区自动映射） <span class="task-tag tag-frontend">前端</span></li>
+              <li>排盘结果页：天干地支 / 五行统计 / 十神分析可视化 <span class="task-tag tag-frontend">前端</span></li>
+              <li>名字推荐页：3-5 个中英文名字 + 含义 + 五行评分 <span class="task-tag tag-frontend">前端</span></li>
+              <li>响应式适配：桌面 + 移动端（海外 60%+ 移动流量） <span class="task-tag tag-frontend">前端</span></li>
+              <li>全局 i18n 架构：中/英双语切换组件 + 语言包 <span class="task-tag tag-frontend">前端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">2.2 AI 核心能力（Day 1-2）</div>
+            <ul class="task-list">
+              <li>八字排盘工作流：输入生日→计算天干地支→五行分析→十神判定 <span class="task-tag tag-ai">AI工作流</span><span class="task-tag tag-must">必做</span></li>
+              <li>起名生成工作流：基于八字五行喜忌→生成中英文名字→给出评分和解释 <span class="task-tag tag-ai">AI工作流</span><span class="task-tag tag-must">必做</span></li>
+              <li>Coze API 对接：前端调用工作流，流式返回结果 <span class="task-tag tag-backend">后端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">2.3 用户系统（Day 2）</div>
+            <ul class="task-list">
+              <li>邮箱注册/登录：Supabase Auth 接入 <span class="task-tag tag-backend">后端</span></li>
+              <li>起名历史记录：用户保存/查看过往起名结果 <span class="task-tag tag-backend">后端</span></li>
+              <li>用户中心页：基础资料 + 历史记录列表 <span class="task-tag tag-frontend">前端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">2.4 支付接入（Day 2，测试模式）</div>
+            <ul class="task-list">
+              <li>PingPong 跨境支付接入（测试环境） <span class="task-tag tag-payment">支付</span></li>
+              <li>Quick Name SKU：首单 $2.99 / 复购 $4.99 <span class="task-tag tag-payment">支付</span></li>
+              <li>支付成功回调 → 解锁完整名字列表 <span class="task-tag tag-backend">后端</span></li>
+              <li>订单表设计：用户ID / 订单号 / 金额 / 状态 / 创建时间 <span class="task-tag tag-backend">后端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">📦 P0 交付物清单</div>
+            <table class="deliver-table">
+              <thead>
+                <tr><th>模块</th><th>交付物</th><th>验收标准</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>前端</td><td>5 个核心页面 + 双语切换</td><td>可在手机和桌面正常浏览，语言切换无遗漏</td></tr>
+                <tr><td>AI</td><td>2 条工作流（排盘+起名）</td><td>输入生日后 30s 内返回排盘和 3 个名字</td></tr>
+                <tr><td>用户</td><td>注册登录 + 历史记录</td><td>邮箱可注册登录，起名结果自动保存</td></tr>
+                <tr><td>支付</td><td>PingPong 测试环境</td><td>模拟支付后可解锁完整结果</td></tr>
+                <tr><td>部署</td><td>Coze 预览链接 + 临时域名</td><td>海外可访问，加载时间 &lt; 3s</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: P1 -->
+    <section id="p1">
+      <div class="section-title">
+        <span class="num">03</span>
+        <h2>P1 阶段：会员体系与 SEO 基建</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-dot">P1</div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <h3>产品化升级 · 增长基建</h3>
+              <span class="phase-badge">⏱ 约 5 天 · P0 完成后启动</span>
+            </div>
+            <div class="phase-goal">
+              <strong>目标：</strong>上线会员订阅体系，搭建 SEO 内容矩阵，接入 Stripe 正式支付，将产品从「能用」升级到「能持续赚钱」。
+              <br><strong>核心指标：</strong>免费转付费率 ≥ 5%，月会员 ARPU ≥ $9.99，SEO 收录 ≥ 50 页
+            </div>
+
+            <div class="phase-subtitle">3.1 会员订阅体系（Day 1-2）</div>
+            <ul class="task-list">
+              <li>会员权限系统：免费用户 / 月会员 / 年会员 三级权限 <span class="task-tag tag-backend">后端</span></li>
+              <li>月会员 SKU：$9.99/月（首月 $4.95 半价钩子） <span class="task-tag tag-payment">支付</span></li>
+              <li>年会员 SKU：$99.9/年（含 2 份年度八字报告） <span class="task-tag tag-payment">支付</span></li>
+              <li>会员权益页：对比展示各等级权益差异 <span class="task-tag tag-frontend">前端</span></li>
+              <li>订阅管理：取消订阅 / 升级 / 降级 / 续费提醒 <span class="task-tag tag-backend">后端</span></li>
+              <li>Stripe 接入：切换香港公司主体，支持订阅 <span class="task-tag tag-payment">支付</span></li>
+            </ul>
+
+            <div class="phase-subtitle">3.2 SEO 内容矩阵（Day 2-3）</div>
+            <ul class="task-list">
+              <li>100 个名字详情页：每个名字单独页面（含义+五行+适合八字+名人案例） <span class="task-tag tag-marketing">内容</span><span class="task-tag tag-must">核心</span></li>
+              <li>5 个生肖专题页：2025 蛇年起名 / 龙年 / 马年 / 羊年 / 猴年 <span class="task-tag tag-marketing">内容</span></li>
+              <li>博客首篇：「How BaZi Naming Works」「Chinese Name Guide」 <span class="task-tag tag-marketing">内容</span></li>
+              <li>技术 SEO：sitemap.xml / robots.txt / 结构化数据 / Open Graph <span class="task-tag tag-frontend">前端</span></li>
+              <li>URL 结构优化：/names/xxx /zodiac/snake /blog/article-slug <span class="task-tag tag-frontend">前端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">3.3 高客单 SKU 上线（Day 4-5）</div>
+            <ul class="task-list">
+              <li>BaZi Name Report（$49）：深度八字分析 + 20 个精选名字 + PDF 报告 <span class="task-tag tag-ai">AI工作流</span></li>
+              <li>年度运势报告（$169）：年度大运流年分析 + 月度运势 + PDF <span class="task-tag tag-ai">AI工作流</span></li>
+              <li>专家咨询入口（$98/30min）：预约页面 + 日历对接 + 视频会议链接 <span class="task-tag tag-ops">运营</span></li>
+              <li>PDF 报告生成：服务端生成精美 PDF 并发送邮件 <span class="task-tag tag-backend">后端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">3.4 增长工具链（Day 5）</div>
+            <ul class="task-list">
+              <li>邮件订阅系统：起名结果页引导订阅 + 每日运势邮件 <span class="task-tag tag-marketing">内容</span></li>
+              <li>分享裂变：起名结果可分享到社交平台，带来新用户 <span class="task-tag tag-frontend">前端</span></li>
+              <li>GA4 + 埋点：核心漏斗追踪（访问→输入→支付） <span class="task-tag tag-ops">运营</span></li>
+              <li>客服入口：Intercom / Crisp 在线客服接入 <span class="task-tag tag-ops">运营</span></li>
+            </ul>
+
+            <div class="phase-subtitle">📦 P1 交付物清单</div>
+            <table class="deliver-table">
+              <thead>
+                <tr><th>模块</th><th>交付物</th><th>验收标准</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>会员</td><td>订阅系统 + 权益页 + 管理后台</td><td>支付后自动升级，到期自动降级</td></tr>
+                <tr><td>内容</td><td>100+ 名字页 + 生肖页 + 博客</td><td>Google Search Console 显示收录</td></tr>
+                <tr><td>高客单</td><td>2 个高价 SKU + PDF 报告</td><td>下单后 5 分钟内收到 PDF 邮件</td></tr>
+                <tr><td>增长</td><td>邮件系统 + GA4 + 分享功能</td><td>漏斗数据可追踪，分享带来回流</td></tr>
+                <tr><td>支付</td><td>Stripe 正式接入</td><td>支持订阅 + 单次购买，回款正常</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: P2 -->
+    <section id="p2">
+      <div class="section-title">
+        <span class="num">04</span>
+        <h2>P2 阶段：产品化与增长引擎</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="phase-dot">P2</div>
+          <div class="phase-content">
+            <div class="phase-header">
+              <h3>规模放大 · 数据驱动增长</h3>
+              <span class="phase-badge">⏱ 约 7 天 · P1 数据验证后启动</span>
+            </div>
+            <div class="phase-goal">
+              <strong>目标：</strong>完善产品体验，搭建数据驱动的增长体系，探索多渠道获客，向 P3（规模化）冲刺。
+              <br><strong>核心指标：</strong>月活 ≥ 2000，月营收 ≥ $3000，自然流量占比 ≥ 40%
+            </div>
+
+            <div class="phase-subtitle">4.1 体验优化与留存（Day 1-2）</div>
+            <ul class="task-list">
+              <li>每日运势卡片：登录后首页展示今日运势（邮件版 + 网页版） <span class="task-tag tag-ai">AI工作流</span></li>
+              <li>起名收藏夹：用户收藏喜欢的名字，支持对比 <span class="task-tag tag-frontend">前端</span></li>
+              <li>家庭档案：保存宝宝/家人八字，一键起名 <span class="task-tag tag-backend">后端</span></li>
+              <li>PWA 推送：每日运势推送 + 会员到期提醒 <span class="task-tag tag-frontend">前端</span></li>
+              <li>多主题：深色模式 / 浅色模式 / 东方古韵主题 <span class="task-tag tag-frontend">前端</span></li>
+            </ul>
+
+            <div class="phase-subtitle">4.2 多语言与区域扩展（Day 2-3）</div>
+            <ul class="task-list">
+              <li>繁体中文支持：港台 + 东南亚华人市场 <span class="task-tag tag-frontend">前端</span></li>
+              <li>本地化：美国 / 新加坡 / 马来西亚 区域定价微调 <span class="task-tag tag-ops">运营</span></li>
+              <li>时区与时辰优化：更精准的真太阳时计算 <span class="task-tag tag-ai">AI工作流</span></li>
+            </ul>
+
+            <div class="phase-subtitle">4.3 增长引擎搭建（Day 3-5）</div>
+            <ul class="task-list">
+              <li>推荐返利：邀请好友得免费起名次数 <span class="task-tag tag-marketing">增长</span></li>
+              <li>SEO 内容升级：每周 2 篇博客 + 每月 20 个名字页 <span class="task-tag tag-marketing">内容</span></li>
+              <li>短视频引流脚本：TikTok / Instagram Reels 爆款选题库 <span class="task-tag tag-marketing">内容</span></li>
+              <li>联盟营销：命理博主 / KOL 合作分销 <span class="task-tag tag-marketing">增长</span></li>
+              <li>Reddit / Quora 内容营销：专业回答引流 <span class="task-tag tag-marketing">内容</span></li>
+            </ul>
+
+            <div class="phase-subtitle">4.4 数据与运营（Day 5-7）</div>
+            <ul class="task-list">
+              <li>数据看板：核心指标实时监控（GMV / 转化率 / 留存） <span class="task-tag tag-ops">运营</span></li>
+              <li>A/B 测试框架：落地页 / 定价 / CTA 文案持续优化 <span class="task-tag tag-ops">运营</span></li>
+              <li>客服知识库：常见问题自动回复 <span class="task-tag tag-ops">运营</span></li>
+              <td>合规与隐私：GDPR 合规 + 隐私政策 + Cookie 同意 <span class="task-tag tag-ops">运营</span></li>
+            </ul>
+
+            <div class="phase-subtitle">📦 P2 交付物清单</div>
+            <table class="deliver-table">
+              <thead>
+                <tr><th>模块</th><th>交付物</th><th>验收标准</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>体验</td><td>每日运势 + 收藏 + 家庭档案</td><td>次日留存提升 ≥ 15%</td></tr>
+                <tr><td>语言</td><td>繁中 + 本地化定价</td><td>港台用户转化率提升</td></tr>
+                <tr><td>增长</td><td>推荐系统 + 内容矩阵 + 联盟</td><td>自然流量月环比 ≥ 30%</td></tr>
+                <tr><td>数据</td><td>运营看板 + A/B 测试</td><td>核心指标日级可追踪</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: i18n -->
+    <section id="i18n">
+      <div class="section-title">
+        <span class="num">05</span>
+        <h2>中英双语全局架构</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="i18n-block">
+        <p style="margin-bottom: 8px; color: var(--ink-soft);">
+          <strong>确认：MVP 阶段全站中英双语。</strong>
+          海外八字起名的核心客群是两类人——海外华人和对东方玄学感兴趣的西方人。双语是标配，不是加分项。
+        </p>
+        <p style="color: var(--ink-muted); font-size: 14px;">
+          实现方式：React i18next / Vue i18n 架构，语言包独立管理，支持浏览器语言自动检测 + 手动切换。所有页面、邮件、PDF 报告均双语。
+        </p>
+
+        <div class="i18n-grid">
+          <div class="i18n-col">
+            <h4>页面层（全部双语）</h4>
+            <ul class="i18n-list">
+              <li><span>首页 / 落地页</span><span>✓ 双语</span></li>
+              <li><span>八字输入页</span><span>✓ 双语</span></li>
+              <li><span>排盘结果页</span><span>✓ 双语</span></li>
+              <li><span>名字推荐页</span><span>✓ 双语</span></li>
+              <li><span>会员定价页</span><span>✓ 双语</span></li>
+              <li><span>用户中心</span><span>✓ 双语</span></li>
+              <li><span>名字详情页（SEO）</span><span>✓ 双语</span></li>
+              <li><span>博客文章</span><span>✓ 双语</span></li>
+            </ul>
+          </div>
+          <div class="i18n-col">
+            <h4>系统层（全部双语）</h4>
+            <ul class="i18n-list">
+              <li><span>注册/登录邮件</span><span>✓ 双语</span></li>
+              <li><span>支付确认邮件</span><span>✓ 双语</span></li>
+              <li><span>PDF 报告</span><span>✓ 双语</span></li>
+              <li><span>每日运势邮件</span><span>✓ 双语</span></li>
+              <li><span>客服回复模板</span><span>✓ 双语</span></li>
+              <li><span>错误提示</span><span>✓ 双语</span></li>
+              <li><span>隐私政策 / 服务条款</span><span>✓ 双语</span></li>
+              <li><span>SEO meta 标签</span><span>✓ 双语</span></li>
+            </ul>
+          </div>
+          <div class="i18n-col">
+            <h4>AI 输出层</h4>
+            <ul class="i18n-list">
+              <li><span>八字排盘分析</span><span>✓ 双语输出</span></li>
+              <li><span>名字解释文案</span><span>✓ 双语输出</span></li>
+              <li><span>运势解读</span><span>✓ 双语输出</span></li>
+              <li><span>报告生成</span><span>✓ 双语输出</span></li>
+              <li><span>起名推荐数量</span><span>3-5 个</span></li>
+              <li><span>响应语言切换</span><span>实时跟随</span></li>
+              <li><span>名字拼音标注</span><span>英文名无 / 中文名有</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Tech Stack -->
+    <section id="tech">
+      <div class="section-title">
+        <span class="num">06</span>
+        <h2>技术架构与成本</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item">
+          <div class="tech-name">Cloudflare Pages</div>
+          <div class="tech-role">前端托管 + CDN</div>
+          <div class="tech-cost">$0 / 月（免费额度足够）</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">Cloudflare Workers</div>
+          <div class="tech-role">Serverless API 层</div>
+          <div class="tech-cost">$0 → $5 / 月起</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">Coze / 扣子</div>
+          <div class="tech-role">AI 工作流 + 八字计算</div>
+          <div class="tech-cost">免费 → ¥99 / 月</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">Supabase</div>
+          <div class="tech-role">用户系统 + 数据库</div>
+          <div class="tech-cost">$0 → $25 / 月</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">PingPong / 寻汇</div>
+          <div class="tech-role">跨境收款（P0 过渡）</div>
+          <div class="tech-cost">手续费 1-2%</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">Stripe</div>
+          <div class="tech-role">订阅支付（P1 切换）</div>
+          <div class="tech-cost">2.9% + $0.30 / 笔</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">Cloudflare Domain</div>
+          <div class="tech-role">自定义域名</div>
+          <div class="tech-cost">$8-15 / 年</div>
+        </div>
+        <div class="tech-item">
+          <div class="tech-name">Resend / Brevo</div>
+          <div class="tech-role">邮件发送</div>
+          <div class="tech-cost">$0 → $20 / 月</div>
+        </div>
+      </div>
+
+      <div class="strategy-grid" style="margin-top: 8px;">
+        <div class="strategy-card">
+          <div class="icon">⟁</div>
+          <h3>P0 月成本 ≈ $0-20</h3>
+          <p>域名 $1/月 + Cloudflare 免费 + Supabase 免费 + Coze 免费版 1500 积分/天。早期用户量小时几乎零成本运行。</p>
+        </div>
+        <div class="strategy-card">
+          <div class="icon">⟁</div>
+          <h3>P1 月成本 ≈ $50-100</h3>
+          <p>Coze 个人高阶版 ¥99 + Supabase Pro $25 + 邮件 $20 + 杂项。收入应在 P1 中后期覆盖成本。</p>
+        </div>
+        <div class="strategy-card">
+          <div class="icon">⟁</div>
+          <h3>P2 月成本 ≈ $150-200</h3>
+          <p>加上 CDN 流量费 + 更多 AI 调用 + 客服工具。此时月营收目标 $3000+，成本占比 &lt; 10%。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Milestone & Risk -->
+    <section id="milestone">
+      <div class="section-title">
+        <span class="num">07</span>
+        <h2>里程碑与风险管理</h2>
+        <span class="line"></span>
+      </div>
+
+      <div class="milestone-wrap">
+        <div class="milestone-card">
+          <h4>关键里程碑</h4>
+          <div class="milestone-item">
+            <span>MVP 上线（P0）</span>
+            <span class="date">Day 2</span>
+          </div>
+          <div class="milestone-item">
+            <span>首单支付验证</span>
+            <span class="date">Day 3-4</span>
+          </div>
+          <div class="milestone-item">
+            <span>会员系统上线（P1）</span>
+            <span class="date">Day 7</span>
+          </div>
+          <div class="milestone-item">
+            <span>SEO 收录 50+ 页</span>
+            <span class="date">Day 14</span>
+          </div>
+          <div class="milestone-item">
+            <span>月营收破 $1000</span>
+            <span class="date">Day 30</span>
+          </div>
+          <div class="milestone-item">
+            <span>启动 P3 规模化</span>
+            <span class="date">Day 45</span>
+          </div>
+        </div>
+
+        <div class="risk-card">
+          <h4>风险与应对</h4>
+          <div class="risk-item">
+            <div class="risk-title">
+              AI 起名质量不稳定
+              <span class="risk-level risk-high">高</span>
+            </div>
+            <div class="risk-desc">应对：建立名字库 + 人工审核 + Prompt 工程优化 + 用户反馈闭环</div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-title">
+              支付合规风险
+              <span class="risk-level risk-high">高</span>
+            </div>
+            <div class="risk-desc">应对：P0 用 PingPong 过渡，同步注册香港公司上 Stripe，玄学类注意平台审核</div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-title">
+              SEO 起量慢
+              <span class="risk-level risk-mid">中</span>
+            </div>
+            <div class="risk-desc">应对：名字页批量生成做量，同时做短视频和社媒引流，双线并行</div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-title">
+              八字排盘精度问题
+              <span class="risk-level risk-mid">中</span>
+            </div>
+            <div class="risk-desc">应对：真太阳时计算 + 经纬度 + 节气精确到分钟，用专业算法库</div>
+          </div>
+          <div class="risk-item">
+            <div class="risk-title">
+              海外获客成本高
+              <span class="risk-level risk-low">低</span>
+            </div>
+            <div class="risk-desc">应对：主打 SEO 内容复利 + 短视频免费流量，不碰付费广告</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="brand">LUCKMI · 乐祺名</div>
+    <div>BaZi Names & Fortune Studio · 策略文档 v2.0</div>
+    <div style="margin-top: 8px; font-size: 12px; opacity: 0.5;">生成时间：2026-08-26 · 本文件为项目内部文档</div>
+  </footer>
+
+  <script>
+    // TOC smooth scroll
+    document.querySelectorAll('#toc li').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.getElementById(el.getAttribute('data-target'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

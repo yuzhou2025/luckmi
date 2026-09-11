@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`month: 月度报告骨架（基准盘，now=2026-09-08） > snapshot 锁定 1`] = `
+{
+  "liunian": {
+    "ganzhi": "丙午",
+    "year": 2026,
+  },
+  "liuriCount": 31,
+  "liuriCurrent": "9/8",
+  "liuriHead": [
+    {
+      "gz": "乙酉",
+      "label": "9/8",
+    },
+    {
+      "gz": "丙戌",
+      "label": "9/9",
+    },
+    {
+      "gz": "丁亥",
+      "label": "9/10",
+    },
+  ],
+  "liuriTail": [
+    {
+      "gz": "癸丑",
+      "label": "10/6",
+    },
+    {
+      "gz": "甲寅",
+      "label": "10/7",
+    },
+    {
+      "gz": "乙卯",
+      "label": "10/8",
+    },
+  ],
+  "liuyue": {
+    "gz": "丁酉",
+    "jieqi": "白露",
+    "jieqiDate": "9.7",
+    "label": "八月",
+  },
+}
+`;

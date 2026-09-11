@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luckmi 乐祺名 · 项目文档下载中心</title>
+  <style>
+    :root {
+      --bg: #F8F4EC;
+      --ink: #1B1712;
+      --ink-soft: #4A4238;
+      --ink-muted: #7B7164;
+      --gold: #B9975B;
+      --gold-light: #D4BC8C;
+      --gold-dark: #8B7341;
+      --card: #FFFFFF;
+      --line: #E5DDCF;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 720px;
+      width: 100%;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .brand-tag {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold-dark);
+      border: 1px solid var(--gold);
+      padding: 6px 16px;
+      margin-bottom: 20px;
+    }
+    .header h1 {
+      font-size: 32px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .header p {
+      color: var(--ink-muted);
+      font-size: 15px;
+    }
+    .doc-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 32px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      transition: all 0.3s ease;
+    }
+    .doc-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 8px 32px rgba(27, 23, 18, 0.08);
+      transform: translateY(-2px);
+    }
+    .doc-icon {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-dark);
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+    .doc-info {
+      flex: 1;
+    }
+    .doc-info h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .doc-info p {
+      font-size: 14px;
+      color: var(--ink-muted);
+    }
+    .doc-info .meta {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--ink);
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 1px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      cursor: pointer;
+      border: none;
+    }
+    .download-btn:hover {
+      background: var(--gold-dark);
+    }
+    .download-btn::before {
+      content: '↓';
+      font-size: 16px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 48px;
+      font-size: 13px;
+      color: var(--ink-muted);
+    }
+    @media (max-width: 640px) {
+      .doc-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand-tag">LUCKMI · 乐祺名</div>
+      <h1>项目文档下载中心</h1>
+      <p>点击按钮即可下载文档到本地，HTML 格式可用浏览器直接打开</p>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon">☰</div>
+      <div class="doc-info">
+        <h3>项目全流程实操策略</h3>
+        <p>从市场分析到落地推广的完整 10 章节策略文档</p>
+        <div class="meta">HTML 格式 · 可直接浏览器打开 · 支持打印</div>
+      </div>
+      <a class="download-btn" href="Luckmi_海外八字起名_项目全流程实操策略.html" download="Luckmi_海外八字起名_项目全流程实操策略.html">下载</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon">◈</div>
+      <div class="doc-info">
+        <h3>P0-P2 细化执行策略</h3>
+        <p>P0-P2 三阶段详细任务拆解、技术架构与里程碑</p>
+        <div class="meta">HTML 格式 · 可直接浏览器打开 · 支持打印</div>
+      </div>
+      <a class="download-btn" href="Luckmi_P0-P2_细化执行策略.html" download="Luckmi_P0-P2_细化执行策略.html">下载</a>
+    </div>
+
+    <div class="footer">
+      BaZi Names & Fortune Studio · 项目文档 v2.0
+    </div>
+  </div>
+</body>
+</html>

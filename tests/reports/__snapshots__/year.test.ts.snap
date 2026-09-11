@@ -1,0 +1,90 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`year: 流年报告骨架（基准盘，now=2026-09-08） > snapshot 锁定 1`] = `
+{
+  "dayun": "丁丑",
+  "duanyu": [
+    "ss-zhengguan",
+  ],
+  "liunian": {
+    "age": 52,
+    "gz": "丙午",
+    "shishen": "正官",
+    "year": 2026,
+  },
+  "liuyue": [
+    {
+      "current": false,
+      "gz": "庚寅",
+      "jieqi": "立春",
+      "label": "正月",
+    },
+    {
+      "current": false,
+      "gz": "辛卯",
+      "jieqi": "惊蛰",
+      "label": "二月",
+    },
+    {
+      "current": false,
+      "gz": "壬辰",
+      "jieqi": "清明",
+      "label": "三月",
+    },
+    {
+      "current": false,
+      "gz": "癸巳",
+      "jieqi": "立夏",
+      "label": "四月",
+    },
+    {
+      "current": false,
+      "gz": "甲午",
+      "jieqi": "芒种",
+      "label": "五月",
+    },
+    {
+      "current": false,
+      "gz": "乙未",
+      "jieqi": "小暑",
+      "label": "六月",
+    },
+    {
+      "current": false,
+      "gz": "丙申",
+      "jieqi": "立秋",
+      "label": "七月",
+    },
+    {
+      "current": true,
+      "gz": "丁酉",
+      "jieqi": "白露",
+      "label": "八月",
+    },
+    {
+      "current": false,
+      "gz": "戊戌",
+      "jieqi": "寒露",
+      "label": "九月",
+    },
+    {
+      "current": false,
+      "gz": "己亥",
+      "jieqi": "立冬",
+      "label": "十月",
+    },
+    {
+      "current": false,
+      "gz": "庚子",
+      "jieqi": "大雪",
+      "label": "冬月",
+    },
+    {
+      "current": false,
+      "gz": "辛丑",
+      "jieqi": "小寒",
+      "label": "腊月",
+    },
+  ],
+}
+`;

@@ -1,0 +1,227 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`life: 基准命盘（乙卯 壬午 辛卯 戊子） > 完整结构 snapshot 锁定 1`] = `
+{
+  "dayun": [
+    {
+      "age": 3,
+      "current": false,
+      "gz": "辛巳",
+      "year": 1977,
+    },
+    {
+      "age": 13,
+      "current": false,
+      "gz": "庚辰",
+      "year": 1987,
+    },
+    {
+      "age": 23,
+      "current": false,
+      "gz": "己卯",
+      "year": 1997,
+    },
+    {
+      "age": 33,
+      "current": false,
+      "gz": "戊寅",
+      "year": 2007,
+    },
+    {
+      "age": 43,
+      "current": true,
+      "gz": "丁丑",
+      "year": 2017,
+    },
+    {
+      "age": 53,
+      "current": false,
+      "gz": "丙子",
+      "year": 2027,
+    },
+    {
+      "age": 63,
+      "current": false,
+      "gz": "乙亥",
+      "year": 2037,
+    },
+    {
+      "age": 73,
+      "current": false,
+      "gz": "甲戌",
+      "year": 2047,
+    },
+    {
+      "age": 83,
+      "current": false,
+      "gz": "癸酉",
+      "year": 2057,
+    },
+  ],
+  "liunian": [
+    {
+      "age": 43,
+      "current": false,
+      "gz": "丁酉",
+      "shishen": "七杀",
+      "year": 2017,
+    },
+    {
+      "age": 44,
+      "current": false,
+      "gz": "戊戌",
+      "shishen": "正印",
+      "year": 2018,
+    },
+    {
+      "age": 45,
+      "current": false,
+      "gz": "己亥",
+      "shishen": "偏印",
+      "year": 2019,
+    },
+    {
+      "age": 46,
+      "current": false,
+      "gz": "庚子",
+      "shishen": "劫财",
+      "year": 2020,
+    },
+    {
+      "age": 47,
+      "current": false,
+      "gz": "辛丑",
+      "shishen": "比肩",
+      "year": 2021,
+    },
+    {
+      "age": 48,
+      "current": false,
+      "gz": "壬寅",
+      "shishen": "伤官",
+      "year": 2022,
+    },
+    {
+      "age": 49,
+      "current": false,
+      "gz": "癸卯",
+      "shishen": "食神",
+      "year": 2023,
+    },
+    {
+      "age": 50,
+      "current": false,
+      "gz": "甲辰",
+      "shishen": "正财",
+      "year": 2024,
+    },
+    {
+      "age": 51,
+      "current": false,
+      "gz": "乙巳",
+      "shishen": "偏财",
+      "year": 2025,
+    },
+    {
+      "age": 52,
+      "current": true,
+      "gz": "丙午",
+      "shishen": "正官",
+      "year": 2026,
+    },
+  ],
+  "pattern": {
+    "name": "七杀格",
+    "sub": "杀印相生",
+  },
+  "patternDuanyu": [
+    "pat-qisha",
+    "pat-qisha-shayin",
+  ],
+  "pillars": [
+    {
+      "dishi": "绝",
+      "gan": "乙",
+      "nayin": "大溪水",
+      "shishen": "偏财",
+      "zhi": "卯",
+    },
+    {
+      "dishi": "病",
+      "gan": "壬",
+      "nayin": "杨柳木",
+      "shishen": "伤官",
+      "zhi": "午",
+    },
+    {
+      "dishi": "绝",
+      "gan": "辛",
+      "nayin": "松柏木",
+      "shishen": "日主",
+      "zhi": "卯",
+    },
+    {
+      "dishi": "长生",
+      "gan": "戊",
+      "nayin": "霹雳火",
+      "shishen": "正印",
+      "zhi": "子",
+    },
+  ],
+  "score": {
+    "huo": 23,
+    "jin": 0,
+    "mu": 36,
+    "shui": 18,
+    "tu": 23,
+  },
+  "strength": "极弱",
+  "strengthDuanyu": [
+    "st-weak",
+  ],
+  "tiaohou": {
+    "duanyu": [
+      "th-summer",
+    ],
+    "gods": [
+      "壬",
+      "己",
+    ],
+    "season": "夏",
+  },
+  "trueSolarTime": "1975-06-14 00:30",
+  "xiyong": {
+    "colors": [
+      "黄",
+      "棕",
+      "白",
+      "金",
+    ],
+    "directions": [
+      "中",
+      "东北",
+      "西南",
+      "西",
+      "西北",
+    ],
+    "ji": [
+      "火",
+      "木",
+      "水",
+    ],
+    "numbers": [
+      5,
+      0,
+      4,
+      9,
+    ],
+    "xi": [
+      "金",
+    ],
+    "yong": [
+      "土",
+    ],
+  },
+  "zodiac": "兔",
+}
+`;

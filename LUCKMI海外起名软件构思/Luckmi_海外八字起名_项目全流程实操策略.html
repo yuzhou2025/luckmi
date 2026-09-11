@@ -1,0 +1,1404 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luckmi 乐祺名 · 海外八字起名项目全流程实操策略</title>
+<style>
+:root {
+  --bg: #F8F6F0;
+  --bg-card: #FFFFFF;
+  --deep-navy: #102A43;
+  --data-blue: #2978B5;
+  --data-blue-light: #E8F1F9;
+  --accent-gold: #C9A962;
+  --accent-gold-light: #F7F1E1;
+  --accent-orange: #F59E0B;
+  --accent-orange-light: #FEF3C7;
+  --success: #2E7D32;
+  --success-light: #E8F5E9;
+  --danger: #C62828;
+  --danger-light: #FFEBEE;
+  --teal: #2A9D8F;
+  --purple: #7B2CBF;
+  --text: #1D2733;
+  --text-secondary: #667085;
+  --text-tertiary: #98A2B3;
+  --border: #E6E1D8;
+  --border-light: #F0EDE6;
+
+  --serif: Georgia, 'Times New Roman', 'Songti SC', 'Noto Serif SC', serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --mono: 'SF Mono', 'JetBrains Mono', Consolas, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 42, 67, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 42, 67, 0.08);
+  --shadow-lg: 0 12px 32px rgba(16, 42, 67, 0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; padding: 0;
+  font-family: var(--sans);
+  font-size: 16px; line-height: 1.75; color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.report-header {
+  background: linear-gradient(135deg, var(--deep-navy) 0%, #1a3a5c 50%, #2a4a6c 100%);
+  color: #fff; padding: 72px 32px 96px; position: relative; overflow: hidden;
+}
+.report-header::before {
+  content: ''; position: absolute; top: -60%; right: -5%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201, 169, 98, 0.2) 0%, transparent 65%);
+  border-radius: 50%; pointer-events: none;
+}
+.report-header::after {
+  content: ''; position: absolute; bottom: -40%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(41, 120, 181, 0.15) 0%, transparent 60%);
+  border-radius: 50%; pointer-events: none;
+}
+.header-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+.report-meta { display: flex; gap: 20px; align-items: center; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 24px; letter-spacing: 0.08em; text-transform: uppercase; }
+.report-meta .divider { width: 20px; height: 1px; background: var(--accent-gold); }
+.brand { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--accent-gold); margin-bottom: 12px; letter-spacing: 0.05em; }
+.report-title { font-family: var(--serif); font-size: clamp(28px, 4.5vw, 48px); font-weight: 700; line-height: 1.2; margin: 0 0 20px; max-width: 800px; }
+.report-subtitle { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.75); max-width: 720px; margin: 0; }
+.slogan { margin-top: 24px; font-size: 15px; color: var(--accent-gold); font-style: italic; font-family: var(--serif); }
+
+/* Key Metrics */
+.key-metrics { max-width: 1200px; margin: -48px auto 0; padding: 0 32px; position: relative; z-index: 2; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.metric-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-md); border-top: 3px solid var(--accent-gold); }
+.metric-card:nth-child(2) { border-top-color: var(--data-blue); }
+.metric-card:nth-child(3) { border-top-color: var(--teal); }
+.metric-card:nth-child(4) { border-top-color: var(--purple); }
+.metric-card:nth-child(5) { border-top-color: var(--success); }
+.metric-value { font-family: var(--serif); font-size: 28px; font-weight: 700; color: var(--deep-navy); line-height: 1.1; margin-bottom: 6px; }
+.metric-label { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+/* Nav */
+.toc-wrapper { max-width: 1200px; margin: 56px auto 0; padding: 0 32px; }
+.toc { background: var(--bg-card); border-radius: var(--radius-md); padding: 28px 36px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.toc-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.1em; text-transform: uppercase; margin: 0 0 20px; }
+.toc-list { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 32px; }
+.toc-list li { break-inside: avoid; margin-bottom: 8px; }
+.toc-list a { color: var(--text); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 10px; padding: 4px 0; transition: color 0.2s; }
+.toc-list a:hover { color: var(--accent-gold); }
+.toc-num { font-family: var(--mono); font-size: 12px; color: var(--text-tertiary); min-width: 22px; }
+
+/* Main */
+main { max-width: 1200px; margin: 0 auto; padding: 64px 32px 80px; }
+section { margin-bottom: 80px; }
+section:last-child { margin-bottom: 0; }
+h2 { font-family: var(--serif); font-size: 30px; font-weight: 700; color: var(--deep-navy); margin: 0 0 8px; line-height: 1.3; scroll-margin-top: 24px; border-bottom: 2px solid var(--accent-gold); padding-bottom: 12px; display: inline-block; }
+.section-intro { color: var(--text-secondary); font-size: 15px; margin-bottom: 32px; max-width: 760px; }
+h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--deep-navy); margin: 40px 0 16px; line-height: 1.4; scroll-margin-top: 24px; }
+h4 { font-size: 16px; font-weight: 600; color: var(--deep-navy); margin: 24px 0 12px; }
+p { margin: 0 0 18px; color: var(--text); }
+.prose { max-width: 760px; }
+
+/* Links */
+a { color: var(--data-blue); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--deep-navy); text-decoration: underline; }
+
+/* Callout */
+.callout { border-radius: var(--radius-md); padding: 20px 24px; margin: 24px 0; }
+.callout-gold { background: var(--accent-gold-light); border-left: 4px solid var(--accent-gold); }
+.callout-blue { background: var(--data-blue-light); border-left: 4px solid var(--data-blue); }
+.callout-green { background: var(--success-light); border-left: 4px solid var(--success); }
+.callout-red { background: var(--danger-light); border-left: 4px solid var(--danger); }
+.callout-title { font-weight: 600; margin-bottom: 6px; color: var(--deep-navy); }
+
+/* Tables */
+.table-wrapper { overflow-x: auto; margin: 24px 0; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+caption { font-weight: 600; text-align: left; padding: 14px 20px; background: var(--deep-navy); color: #fff; font-family: var(--serif); font-size: 16px; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+thead th { background: #f5f3ed; font-weight: 600; text-align: left; padding: 12px 20px; color: var(--deep-navy); border-bottom: 2px solid var(--border); font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; }
+tbody td { padding: 12px 20px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #fcfbf8; }
+.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+.tag-green { background: var(--success-light); color: var(--success); }
+.tag-yellow { background: var(--accent-orange-light); color: #92400e; }
+.tag-red { background: var(--danger-light); color: var(--danger); }
+.tag-blue { background: var(--data-blue-light); color: var(--data-blue); }
+.tag-gold { background: var(--accent-gold-light); color: #8b6914; }
+
+/* Roadmap */
+.roadmap { position: relative; margin: 32px 0; padding-left: 28px; }
+.roadmap::before { content: ''; position: absolute; left: 8px; top: 8px; bottom: 8px; width: 2px; background: var(--accent-gold); }
+.phase { position: relative; margin-bottom: 32px; }
+.phase::before { content: ''; position: absolute; left: -24px; top: 8px; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-gold); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--accent-gold); }
+.phase-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 12px; flex-wrap: wrap; }
+.phase-label { font-family: var(--mono); font-size: 13px; color: var(--accent-gold); font-weight: 600; letter-spacing: 0.05em; }
+.phase-title { font-family: var(--serif); font-size: 20px; font-weight: 600; color: var(--deep-navy); margin: 0; }
+.phase-duration { font-size: 13px; color: var(--text-secondary); margin-left: auto; }
+.phase-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 20px 24px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.phase-goal { font-size: 14px; color: var(--text-secondary); margin-bottom: 14px; font-style: italic; }
+.phase-tasks { list-style: none; padding: 0; margin: 0; }
+.phase-tasks li { padding: 6px 0 6px 24px; position: relative; font-size: 14px; }
+.phase-tasks li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 600; }
+.phase-metrics { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--border); display: flex; gap: 24px; flex-wrap: wrap; }
+.metric-item { font-size: 13px; }
+.metric-item strong { display: block; color: var(--deep-navy); font-size: 15px; font-family: var(--serif); }
+.metric-item span { color: var(--text-secondary); font-size: 12px; }
+
+/* Two columns */
+.cols-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin: 24px 0; }
+.col-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.col-card h4 { margin-top: 0; color: var(--deep-navy); }
+
+/* Pricing tiers */
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin: 24px 0; }
+.price-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); text-align: center; transition: transform 0.2s, box-shadow 0.2s; position: relative; }
+.price-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.price-card.featured { border: 2px solid var(--accent-gold); }
+.price-card.featured::before { content: '核心转化'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-gold); color: #fff; font-size: 11px; padding: 3px 12px; border-radius: 20px; font-weight: 500; }
+.price-name { font-weight: 600; font-size: 15px; color: var(--deep-navy); margin-bottom: 8px; }
+.price-amount { font-family: var(--serif); font-size: 32px; font-weight: 700; color: var(--deep-navy); margin-bottom: 4px; }
+.price-amount .currency { font-size: 18px; vertical-align: super; }
+.price-period { font-size: 12px; color: var(--text-secondary); margin-bottom: 16px; }
+.price-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+/* Tech stack */
+.tech-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 24px 0; }
+.tech-card { background: var(--bg-card); border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+.tech-card h4 { margin-top: 0; color: var(--accent-gold); font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
+.tech-list { list-style: none; padding: 0; margin: 0; }
+.tech-list li { padding: 4px 0; font-size: 14px; display: flex; justify-content: space-between; align-items: center; }
+.tech-list li span:last-child { font-family: var(--mono); font-size: 12px; color: var(--text-tertiary); background: #f5f3ed; padding: 2px 8px; border-radius: 4px; }
+
+/* Checklist */
+.checklist { list-style: none; padding: 0; margin: 16px 0; }
+.checklist li { padding: 8px 0 8px 32px; position: relative; font-size: 14px; border-bottom: 1px solid var(--border-light); }
+.checklist li:last-child { border-bottom: none; }
+.checklist li::before { content: '☐'; position: absolute; left: 0; font-size: 18px; color: var(--accent-gold); }
+
+/* Footer */
+.report-footer { background: var(--deep-navy); color: rgba(255,255,255,0.6); padding: 48px 32px; text-align: center; font-size: 13px; }
+.report-footer .footer-brand { color: var(--accent-gold); font-family: var(--serif); font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+
+@media (max-width: 768px) {
+  .toc-list { columns: 1; }
+  .key-metrics { grid-template-columns: repeat(2, 1fr); }
+  .phase-header { flex-direction: column; gap: 4px; }
+  .phase-duration { margin-left: 0; }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media print {
+  .report-header { background: #fff !important; color: var(--deep-navy) !important; padding: 24px 0 !important; }
+  .report-header::before, .report-header::after { display: none; }
+  .brand, .slogan { color: var(--accent-gold) !important; }
+  .report-title { font-size: 28px; }
+  .toc-wrapper { display: none; }
+  section { break-inside: avoid; margin-bottom: 32px; }
+  .price-card, .col-card, .tech-card, .phase-card { box-shadow: none !important; border: 1px solid #ccc !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="report-header">
+  <div class="header-inner">
+    <div class="report-meta">
+      <span>项目实操策略</span>
+      <span class="divider"></span>
+      <span>海外八字起名</span>
+      <span class="divider"></span>
+      <span>2026.08</span>
+    </div>
+    <div class="brand">Luckmi · 乐祺名</div>
+    <h1 class="report-title">海外八字起名应用<br>全流程实操策略</h1>
+    <p class="report-subtitle">从产品设计、技术开发、支付合规到海外推广的完整落地路线图。基于竞品调研结论与市场空白分析，为 Luckmi 量身定制的四阶段执行方案。</p>
+    <div class="slogan">Rooted in Chinese metaphysics, powered by BaZi wisdom.</div>
+  </div>
+</header>
+
+<!-- Key Metrics -->
+<div class="key-metrics">
+  <div class="metric-card">
+    <div class="metric-value">16<span style="font-size:16px;color:var(--text-secondary)"> 周</span></div>
+    <div class="metric-label">MVP → iOS 上架全周期</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">6<span style="font-size:16px;color:var(--text-secondary)"> 个</span></div>
+    <div class="metric-label">付费 SKU 梯度</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">$2.99<span style="font-size:16px;color:var(--text-secondary)"> 起</span></div>
+    <div class="metric-label">首单获客价格</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">4<span style="font-size:16px;color:var(--text-secondary)"> 阶段</span></div>
+    <div class="metric-label">渐进式上线路线</div>
+  </div>
+  <div class="metric-card">
+    <div class="metric-value">3<span style="font-size:16px;color:var(--text-secondary)"> 条</span></div>
+    <div class="metric-label">核心获客渠道</div>
+  </div>
+</div>
+
+<!-- TOC -->
+<nav class="toc-wrapper">
+  <div class="toc">
+    <div class="toc-title">目录</div>
+    <ul class="toc-list">
+      <li><a href="#overview"><span class="toc-num">01</span>产品总览与市场定位</a></li>
+      <li><a href="#pricing"><span class="toc-num">02</span>收费体系与 SKU 设计</a></li>
+      <li><a href="#tech"><span class="toc-num">03</span>技术架构与开发方案</a></li>
+      <li><a href="#payment"><span class="toc-num">04</span>支付渠道与收款方案</a></li>
+      <li><a href="#roadmap"><span class="toc-num">05</span>四阶段落地路线图</a></li>
+      <li><a href="#marketing"><span class="toc-num">06</span>海外推广与获客策略</a></li>
+      <li><a href="#compliance"><span class="toc-num">07</span>合规与风控</a></li>
+      <li><a href="#team"><span class="toc-num">08</span>团队配置与成本估算</a></li>
+      <li><a href="#kpi"><span class="toc-num">09</span>关键指标与里程碑</a></li>
+      <li><a href="#risk"><span class="toc-num">10</span>风险预案</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- 01 产品总览 -->
+<section id="overview">
+  <h2>01 产品总览与市场定位</h2>
+  <p class="section-intro">明确 Luckmi 的品牌定位、目标市场、核心差异点，以及为什么现在是进入的最佳时机。</p>
+
+  <div class="cols-2">
+    <div class="col-card">
+      <h4>品牌身份</h4>
+      <p style="margin:0 0 8px"><strong>Luckmi · 乐祺名</strong></p>
+      <p style="margin:0 0 8px;color:var(--text-secondary);font-size:14px">副标题：BaZi Names &amp; Fortune Studio</p>
+      <p style="margin:0;color:var(--text-secondary);font-size:14px;font-style:italic">Rooted in Chinese metaphysics, powered by BaZi wisdom.</p>
+    </div>
+    <div class="col-card">
+      <h4>一句话定位</h4>
+      <p style="margin:0">面向全球英文用户与海外华人的「懂东方命理的 AI 人格起名 + 八字运势平台」。以中英双语深度融合为核心差异化，填补海外市场空白。</p>
+    </div>
+  </div>
+
+  <h3>目标市场与人群</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>市场层级</th>
+          <th>地区</th>
+          <th>核心人群</th>
+          <th>界面语言</th>
+          <th>付费能力</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-gold">一级市场</span></td>
+          <td>美国、加拿大、英国、澳洲、新西兰</td>
+          <td>海外华人 + 华裔二代/混血家庭 + 对东方文化感兴趣的英语用户</td>
+          <td>中英双语切换</td>
+          <td>高</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">二级市场</span></td>
+          <td>新加坡、香港、马来西亚</td>
+          <td>中英双语刚需人群，华人比例高</td>
+          <td>中英双语</td>
+          <td>中高</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-green">Phase 2</span></td>
+          <td>欧洲（法/德/西）、日本</td>
+          <td>东方文化爱好者、亚裔社区</td>
+          <td>当地语言 + 英文</td>
+          <td>中</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>核心差异点（护城河）</h3>
+  <div class="callout callout-gold">
+    <div class="callout-title">💎 市场空白：中英双语深度融合起名</div>
+    <p style="margin:0">竞品调研覆盖 12+ 海外产品后发现：没有任何一家真正解决了海外华人"英文名 + 中文名 + 八字适配 + 文化解释"的一体化需求。FateTell 体验好但偏纯英文命理，ChineseNameTools 是工具站但 AI 能力弱。这是 Luckmi 的核心切入点。</p>
+  </div>
+
+  <div class="cols-2">
+    <div class="col-card">
+      <h4>✅ 我们有，竞品没有</h4>
+      <ul class="checklist" style="margin:0">
+        <li>英文名转中文名（音近 + 意译 + 五行适配）</li>
+        <li>Sibling Name Matcher（兄弟姐妹名协调）</li>
+        <li>八字排盘 + 五行喜用神驱动起名（非简单五行缺补）</li>
+        <li>中英双语无缝切换，文化解释双语言</li>
+        <li>每日运势 + 起名 + 报告的三层体验闭环</li>
+      </ul>
+    </div>
+    <div class="col-card">
+      <h4>⚔️ 竞品优势，我们要追</h4>
+      <ul class="checklist" style="margin:0">
+        <li>FateTell 的多模态 AI 体验（语音+动画）</li>
+        <li>ChineseNameTools 的 SEO 内容体量（千级页面）</li>
+        <li>Nameberry 的社区 UGC 和品牌影响力</li>
+        <li>占星 App 的推送留存体系（Co-Star 模式）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 02 收费体系 -->
+<section id="pricing">
+  <h2>02 收费体系与 SKU 设计</h2>
+  <p class="section-intro">6 个 SKU 形成完整价格梯度：从 $2.99 低门槛获客，到 $9.99 月会员留存，再到 $169 高客单拉升客单价。</p>
+
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Quick Name<br>速起名</div>
+      <div class="price-amount"><span class="currency">$</span>2.99</div>
+      <div class="price-period">首单体验价 / 复购 $4.99</div>
+      <div class="price-desc">10条完整解析<br>含含义+文化解释+五行适配</div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-name">BaZi Name Report<br>八字命名报告</div>
+      <div class="price-amount"><span class="currency">$</span>49</div>
+      <div class="price-period">单次购买</div>
+      <div class="price-desc">完整八字排盘 + 喜用神分析<br>+ 20个定制名 + 深度文化解读</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">月度会员<br>Pro Monthly</div>
+      <div class="price-amount"><span class="currency">$</span>9.99</div>
+      <div class="price-period">/ 月（首月 $4.95）</div>
+      <div class="price-desc">无限起名 + 月度报告<br>+ 每日运势 + 运势建议</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">年度会员<br>Pro Yearly</div>
+      <div class="price-amount"><span class="currency">$</span>99.9</div>
+      <div class="price-period">/ 年（含 2 份年报）</div>
+      <div class="price-desc">月会员全部 + 2份年报<br>+ 增强版每日运势 + 优先AI</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Annual Report<br>年度报告</div>
+      <div class="price-amount"><span class="currency">$</span>169</div>
+      <div class="price-period">单买价格</div>
+      <div class="price-desc">完整八字 + 姓名匹配<br>+ 大运流年 + PDF 版</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Expert Review<br>专家复核</div>
+      <div class="price-amount"><span class="currency">$</span>98</div>
+      <div class="price-period">/ 次（30分钟）</div>
+      <div class="price-desc">命理师一对一深度解读<br>视频/语音/文字三选一</div>
+    </div>
+  </div>
+
+  <h3>定价策略逻辑</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">💰 定价原则：5~10倍海外溢价 + 竞品锚定</div>
+    <p style="margin:0">高频低客单（起名/月会员）按 5-8 倍 + 竞品锚定；低频高客单（年报/咨询）按 10 倍。核心思路是<strong>不跟国内价格比，跟海外竞品比</strong>，让用户觉得"值"而不是"便宜"。</p>
+  </div>
+
+  <h3>会员权益矩阵</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>功能</th>
+          <th>游客</th>
+          <th>注册免费</th>
+          <th>月会员 $9.99</th>
+          <th>年会员 $99.9</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>姓名简测（3次/天）</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>起名完整解析</td>
+          <td>—</td>
+          <td>—</td>
+          <td>无限</td>
+          <td>无限</td>
+        </tr>
+        <tr>
+          <td>八字排盘 + 五行喜用神</td>
+          <td>简版</td>
+          <td>简版</td>
+          <td>完整</td>
+          <td>完整</td>
+        </tr>
+        <tr>
+          <td>大运/流年/流月/流日</td>
+          <td>—</td>
+          <td>—</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>月度报告</td>
+          <td>—</td>
+          <td>—</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+        <tr>
+          <td>每日运势（基础版）</td>
+          <td>—</td>
+          <td>仅打开可见</td>
+          <td>邮件推送</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>每日运势（增强版）</td>
+          <td>—</td>
+          <td>—</td>
+          <td>—</td>
+          <td>推送 + 流时</td>
+        </tr>
+        <tr>
+          <td>年度报告额度</td>
+          <td>—</td>
+          <td>单买$169</td>
+          <td>单买$169</td>
+          <td>含 2 份</td>
+        </tr>
+        <tr>
+          <td>专家咨询</td>
+          <td>—</td>
+          <td>—</td>
+          <td>9折</td>
+          <td>优先预约</td>
+        </tr>
+        <tr>
+          <td>免费工具（万年历/吉日/解梦）</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+          <td>✅</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 03 技术架构 -->
+<section id="tech">
+  <h2>03 技术架构与开发方案</h2>
+  <p class="section-intro">渐进式技术路线：网页 → PWA → TWA → Capacitor 原生壳。同一套代码渐进升级，避免重复开发。</p>
+
+  <h3>技术栈选型</h3>
+  <div class="tech-stack">
+    <div class="tech-card">
+      <h4>前端</h4>
+      <ul class="tech-list">
+        <li>框架 <span>Vue 3 + Vite</span></li>
+        <li>UI 组件 <span>Element Plus / 自研</span></li>
+        <li>状态管理 <span>Pinia</span></li>
+        <li>国际化 <span>Vue I18n</span></li>
+        <li>PWA <span>Vite PWA Plugin</span></li>
+      </ul>
+    </div>
+    <div class="tech-card">
+      <h4>后端</h4>
+      <ul class="tech-list">
+        <li>语言 <span>Node.js / Python</span></li>
+        <li>框架 <span>FastAPI / Express</span></li>
+        <li>数据库 <span>PostgreSQL</span></li>
+        <li>缓存 <span>Redis</span></li>
+        <li>AI 接口 <span>OpenAI / Claude API</span></li>
+      </ul>
+    </div>
+    <div class="tech-card">
+      <h4>封装演进</h4>
+      <ul class="tech-list">
+        <li>P0 网页 <span>纯 Web + PWA</span></li>
+        <li>P1 安卓 <span>TWA + Bubblewrap</span></li>
+        <li>P2 iOS <span>Capacitor + 原生插件</span></li>
+        <li>推送 <span>FCM + APNs</span></li>
+      </ul>
+    </div>
+    <div class="tech-card">
+      <h4>基础设施</h4>
+      <ul class="tech-list">
+        <li>服务器 <span>AWS / Vercel</span></li>
+        <li>CDN <span>Cloudflare</span></li>
+        <li>邮件 <span>Resend / SendGrid</span></li>
+        <li>监控 <span>Sentry + GA4</span></li>
+        <li>支付 <span>Stripe / PingPong</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>核心模块架构</h3>
+  <div class="table-wrapper">
+    <table>
+      <caption>四大功能模块开发优先级</caption>
+      <thead>
+        <tr>
+          <th>模块</th>
+          <th>子功能</th>
+          <th>开发阶段</th>
+          <th>开发量估算</th>
+          <th>核心算法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>A. 起名</strong></td>
+          <td>宝宝取名、英文名转中文名、Sibling Matcher、网名/宠物名、收藏分享</td>
+          <td><span class="tag tag-gold">P0 MVP</span></td>
+          <td>~3周</td>
+          <td>八字排盘 → 五行喜用神 → AI 生成候选名 → 评分排序</td>
+        </tr>
+        <tr>
+          <td><strong>B. 八字解析</strong></td>
+          <td>四柱排盘、五行平衡、喜用神、大运流年、生肖整合</td>
+          <td><span class="tag tag-blue">P1</span></td>
+          <td>~2周</td>
+          <td>干支历法转换 + 十神体系 + 旺衰判断</td>
+        </tr>
+        <tr>
+          <td><strong>C. 报告与咨询</strong></td>
+          <td>月度报告、年度报告、运势建议、专家咨询</td>
+          <td><span class="tag tag-green">P2</span></td>
+          <td>~3周</td>
+          <td>AI 长文生成 + PDF 导出 + 预约系统</td>
+        </tr>
+        <tr>
+          <td><strong>D. 免费工具</strong></td>
+          <td>万年历、吉日查询、解梦</td>
+          <td><span class="tag tag-gold">P0 MVP</span></td>
+          <td>~1周</td>
+          <td>黄历算法 + 周公解梦库</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-gold">
+    <div class="callout-title">🧠 八字算法核心注意事项</div>
+    <p style="margin-bottom:8px">八字排盘是产品的"地基"，算法准确性直接决定专业度和口碑。关键要点：</p>
+    <ul style="margin:0;padding-left:20px">
+      <li><strong>真太阳时</strong>：必须根据用户出生地经纬度换算真太阳时，不能直接用北京时间排盘，这是专业度的分水岭</li>
+      <li><strong>节气换月</strong>：月柱以节气（立春/惊蛰/清明...）为准，不是农历月份</li>
+      <li><strong>五行旺衰</strong>：不要用简单的"计数法"判断五行强弱，要用月令 + 通根 + 生助综合判断</li>
+      <li><strong>喜用神</strong>：这是起名的核心依据，算法复杂度最高，建议 MVP 阶段引入人工校验</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 支付 -->
+<section id="payment">
+  <h2>04 支付渠道与收款方案</h2>
+  <p class="section-intro">双轨制：MVP 先用国内公司 + 寻汇/PingPong 跑通，同步注册香港公司，产品上线后切换 Stripe 降本增效。</p>
+
+  <h3>收款方案演进路线</h3>
+  <div class="roadmap">
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-label">PHASE 0</span>
+        <h4 class="phase-title">国内公司 + 第三方收款</h4>
+        <span class="phase-duration">MVP 阶段 · 第 1-6 周</span>
+      </div>
+      <div class="phase-card">
+        <p class="phase-goal">目标：最快速度跑通支付链路，不因为公司注册拖慢产品上线</p>
+        <ul class="phase-tasks">
+          <li><strong>主渠道</strong>：PingPong / 寻汇 信用卡收款（费率约 2-3%）</li>
+          <li><strong>补充渠道</strong>：PayPal 企业账户（费率 3.49% + $0.49）</li>
+          <li>主体：国内有限公司营业执照</li>
+          <li>结算：人民币直接到国内对公账户</li>
+          <li>订阅管理：自研或接入第三方订阅系统</li>
+        </ul>
+        <div class="phase-metrics">
+          <div class="metric-item"><strong>2-3%</strong><span>综合费率</span></div>
+          <div class="metric-item"><strong>3-5 天</strong><span>开户周期</span></div>
+          <div class="metric-item"><strong>T+7</strong><span>到账周期</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-label">PHASE 1</span>
+        <h4 class="phase-title">香港公司 + Stripe</h4>
+        <span class="phase-duration">上线后切换 · 第 4-8 周并行</span>
+      </div>
+      <div class="phase-card">
+        <p class="phase-goal">目标：降低支付成本，接入全套 Stripe 能力，提升支付转化率</p>
+        <ul class="phase-tasks">
+          <li><strong>主渠道</strong>：Stripe Checkout + Stripe Billing（费率 2.9% + HK$2.35）</li>
+          <li><strong>支持方式</strong>：信用卡、Apple Pay、Google Pay、Alipay</li>
+          <li>主体：香港有限公司（代办注册 + 年审约 ¥3000-5000/年）</li>
+          <li>银行：Airwallex / PingPong 虚拟账户（远程开户）</li>
+          <li>订阅：Stripe Billing 原生支持，免自研</li>
+          <li>资金回国：空中云汇 / PingPong 结汇到国内</li>
+        </ul>
+        <div class="phase-metrics">
+          <div class="metric-item"><strong>~3%</strong><span>综合费率</span></div>
+          <div class="metric-item"><strong>7-15 天</strong><span>公司注册周期</span></div>
+          <div class="metric-item"><strong>T+2</strong><span>稳定后到账</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>iOS IAP 策略</h3>
+  <div class="callout callout-red">
+    <div class="callout-title">⚠️ Apple 30% 抽成是硬成本，必须策略应对</div>
+    <p style="margin:0">App Store 规定：数字内容和服务必须走 IAP（应用内购买），抽成 30%（第二年小企业 15%）。起名类单次购买可以引导到网页端支付（省 30%），但会员订阅必须走 IAP。</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <caption>iOS 支付策略</caption>
+      <thead>
+        <tr>
+          <th>商品类型</th>
+          <th>支付方式</th>
+          <th>苹果抽成</th>
+          <th>操作策略</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>单次起名 ($4.99)</td>
+          <td>引导 Safari 网页端</td>
+          <td>0%</td>
+          <td>App 内不直接显示价格，引导"去官网获取更多名字"</td>
+        </tr>
+        <tr>
+          <td>八字报告 ($49/$169)</td>
+          <td>引导 Safari 网页端</td>
+          <td>0%</td>
+          <td>同上，App 端只展示简版</td>
+        </tr>
+        <tr>
+          <td>月度会员 ($9.99/mo)</td>
+          <td>Apple IAP</td>
+          <td>30% → 15%</td>
+          <td>必须走 IAP，定价时已考虑抽成</td>
+        </tr>
+        <tr>
+          <td>年度会员 ($99.9/yr)</td>
+          <td>Apple IAP</td>
+          <td>30% → 15%</td>
+          <td>必须走 IAP</td>
+        </tr>
+        <tr>
+          <td>专家咨询 ($98)</td>
+          <td>引导邮件/WhatsApp</td>
+          <td>0%</td>
+          <td>属于"真人服务"，苹果允许站外支付</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>税务合规要点</h3>
+  <div class="cols-2">
+    <div class="col-card">
+      <h4>🇭🇰 香港公司</h4>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li>利得税 16.5%（首 200 万利润 8.25%）</li>
+        <li>离岸收入可申请免税（需审计）</li>
+        <li>无增值税/营业税</li>
+        <li>每年需审计 + 年审</li>
+      </ul>
+    </div>
+    <div class="col-card">
+      <h4>🌍 海外销售税</h4>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li>美国：各州 Sales Tax（按 Nexus 标准）</li>
+        <li>欧盟：VAT（€10k 阈值以上需注册）</li>
+        <li>英国：VAT 20%（£85k 阈值）</li>
+        <li>Stripe Tax 可自动计算收取</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 05 路线图 -->
+<section id="roadmap">
+  <h2>05 四阶段落地路线图</h2>
+  <p class="section-intro">16 周从 MVP 到 iOS 全平台上线。每阶段有明确的目标、交付物和验证指标，确保小步快跑、快速验证。</p>
+
+  <div class="roadmap">
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-label">PHASE 0</span>
+        <h3 class="phase-title">MVP 验证期</h3>
+        <span class="phase-duration">第 1-3 周 · 核心目标：跑通付费闭环</span>
+      </div>
+      <div class="phase-card">
+        <p class="phase-goal">🎯 目标：验证"用户愿意为八字起名付费"这个核心假设。只做最关键的功能，其余全部砍掉。</p>
+        <ul class="phase-tasks">
+          <li><strong>W1</strong>：品牌域名 + 基础架构搭建（Vue 3 + 后端 + 数据库 + 部署）</li>
+          <li><strong>W1</strong>：八字排盘核心算法（真太阳时 + 四柱 + 五行）</li>
+          <li><strong>W2</strong>：宝宝起名功能 + 英文名转中文名 + 结果页</li>
+          <li><strong>W2</strong>：免费工具（万年历 + 吉日查询）作为 SEO 入口</li>
+          <li><strong>W2</strong>：PingPong 收款接入 + 单次起名 $2.99 支付链路</li>
+          <li><strong>W3</strong>：用户系统（注册/登录/收藏/历史记录）</li>
+          <li><strong>W3</strong>：SEO 基础内容：100 个名字详情页 + 5 个生肖页 + 首篇博客</li>
+          <li><strong>W3</strong>：Google Search Console / Bing Webmaster 提交收录</li>
+          <li><strong>并行</strong>：启动香港公司注册（7-15 天）</li>
+        </ul>
+        <div class="phase-metrics">
+          <div class="metric-item"><strong>500 UV</strong><span>首月访问量</span></div>
+          <div class="metric-item"><strong>≥ 2%</strong><span>付费转化率</span></div>
+          <div class="metric-item"><strong>$2.99</strong><span>客单价</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-label">PHASE 1</span>
+        <h3 class="phase-title">会员体系期</h3>
+        <span class="phase-duration">第 4-6 周 · 核心目标：验证订阅留存</span>
+      </div>
+      <div class="phase-card">
+        <p class="phase-goal">🎯 目标：上线月会员，验证订阅模式的 LTV 和留存率，证明产品有持续付费价值。</p>
+        <ul class="phase-tasks">
+          <li><strong>W4</strong>：八字完整排盘 + 五行喜用神深度分析 + 生肖整合</li>
+          <li><strong>W4</strong>：月度报告功能（AI 生成 + 邮件发送）</li>
+          <li><strong>W5</strong>：月会员 $9.99/mo 上线（首月 $4.95 体验价）</li>
+          <li><strong>W5</strong>：邮件每日运势（月会员专属，文字版）</li>
+          <li><strong>W5</strong>：香港公司到位 → 切换 Stripe 支付</li>
+          <li><strong>W6</strong>：起名结果卡片生成 + 社交分享（Instagram/TikTok 尺寸）</li>
+          <li><strong>W6</strong>：邮件自动化序列（7 天转化漏斗）</li>
+          <li><strong>W6</strong>：PWA 功能完善（Service Worker + 添加到主屏引导）</li>
+        </ul>
+        <div class="phase-metrics">
+          <div class="metric-item"><strong>≥ 5%</strong><span>会员转化率</span></div>
+          <div class="metric-item"><strong>≥ 30%</strong><span>次月留存</span></div>
+          <div class="metric-item"><strong>$15+</strong><span>ARPU</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-label">PHASE 2</span>
+        <h3 class="phase-title">多渠道扩张期</h3>
+        <span class="phase-duration">第 7-10 周 · 核心目标：高客单 + 上架安卓</span>
+      </div>
+      <div class="phase-card">
+        <p class="phase-goal">🎯 目标：拉升客单价，拓展分发渠道，从单一起名工具升级为综合命理平台。</p>
+        <ul class="phase-tasks">
+          <li><strong>W7</strong>：年度报告 $169 单买 + 年会员 $99.9/yr 上线（含 2 份年报）</li>
+          <li><strong>W7</strong>：运势提升 / 好运建议功能（会员专属）</li>
+          <li><strong>W8</strong>：BaZi Name Report $49 中端 SKU 上线</li>
+          <li><strong>W8</strong>：Google Play 上架（TWA 封装 + Bubblewrap）</li>
+          <li><strong>W9</strong>：SEO 内容扩充到 500 页 + 外链建设启动</li>
+          <li><strong>W9</strong>：联盟营销计划（Affiliate Program）上线</li>
+          <li><strong>W10</strong>：专家咨询 $98/30min 上线（先跑预约制，验证供给）</li>
+          <li><strong>W10</strong>：数据埋点完善 + 增长分析体系</li>
+        </ul>
+        <div class="phase-metrics">
+          <div class="metric-item"><strong>2000+ UV</strong><span>月访问量</span></div>
+          <div class="metric-item"><strong>$80+</strong><span>客单价</span></div>
+          <div class="metric-item"><strong>50+</strong><span>付费会员数</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-label">PHASE 3</span>
+        <h3 class="phase-title">iOS 与深度运营期</h3>
+        <span class="phase-duration">第 11-16 周 · 核心目标：iOS 上架 + 精细化运营</span>
+      </div>
+      <div class="phase-card">
+        <p class="phase-goal">🎯 目标：完成 App Store 上架，建立完整的增长引擎，进入规模化运营阶段。</p>
+        <ul class="phase-tasks">
+          <li><strong>W11-12</strong>：Capacitor 原生壳开发 + Apple IAP 接入 + APNs 推送配置</li>
+          <li><strong>W12</strong>：每日运势增强版（流时提醒 + 深度匹配）</li>
+          <li><strong>W13</strong>：App Store 提交审核（准备被拒 1-2 次的预案）</li>
+          <li><strong>W13</strong>：ASO 优化（关键词 + 截图 + 描述）</li>
+          <li><strong>W14</strong>：网红 / KOL 合作启动（TikTok / Instagram / YouTube）</li>
+          <li><strong>W14</strong>：情侣合盘 / 姓名配对功能（社交传播型）</li>
+          <li><strong>W15</strong>：付费投放测试（Google Ads + Facebook + TikTok）</li>
+          <li><strong>W16</strong>：数据复盘 + Phase 4 规划（国际化扩展 / 新品类）</li>
+        </ul>
+        <div class="phase-metrics">
+          <div class="metric-item"><strong>5000+ UV</strong><span>月访问量</span></div>
+          <div class="metric-item"><strong>200+</strong><span>付费会员数</span></div>
+          <div class="metric-item"><strong>$3k+ MRR</strong><span>月经常性收入</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 推广 -->
+<section id="marketing">
+  <h2>06 海外推广与获客策略</h2>
+  <p class="section-intro">三条核心获客渠道，按 ROI 排序：SEO 内容 > 社交媒体 > 付费投放。MVP 阶段聚焦 SEO 和内容，有收入后再投放放大。</p>
+
+  <h3>渠道一：SEO 内容营销（ROI 最高）</h3>
+  <div class="callout callout-gold">
+    <div class="callout-title">🔑 核心策略：用 1000 个内容页面，吃下长尾搜索流量</div>
+    <p style="margin:0">海外用户搜"chinese name meaning"、"bazi calculator"、"year of dragon personality"等长尾关键词，每个页面都是一个获客入口。1000 个页面 = 1000 个入口，且是一次生产、长期受益。</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <caption>SEO 内容页面规划</caption>
+      <thead>
+        <tr>
+          <th>页面类型</th>
+          <th>数量（P0 → P2）</th>
+          <th>示例关键词</th>
+          <th>CTA 转化方向</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>名字详情页</strong></td>
+          <td>100 → 500</td>
+          <td>"li name meaning chinese"、"chen name origin"</td>
+          <td>用八字生成个性化名字</td>
+        </tr>
+        <tr>
+          <td><strong>生肖主题页</strong></td>
+          <td>5 → 12 + 60</td>
+          <td>"year of rabbit personality"、"2024 dragon fortune"</td>
+          <td>测你的生肖八字 → 免费注册</td>
+        </tr>
+        <tr>
+          <td><strong>博客长文</strong></td>
+          <td>5 → 50</td>
+          <td>"how to choose chinese name for baby"、"bazi five elements guide"</td>
+          <td>试用起名工具 / 订阅邮件</td>
+        </tr>
+        <tr>
+          <td><strong>免费工具页</strong></td>
+          <td>3 → 10</td>
+          <td>"bazi calculator free"、"chinese calendar converter"</td>
+          <td>工具页内嵌起名 CTA</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>SEO 执行节奏</h4>
+  <ul class="checklist">
+    <li><strong>W1-2</strong>：技术 SEO 基础（站点结构、Schema 标记、页面速度优化、移动端适配）</li>
+    <li><strong>W3</strong>：首批 100 个名字页 + 5 个生肖页 + 5 篇博客上线</li>
+    <li><strong>W4-6</strong>：每周产出 10 个新页面 + 2 篇博客</li>
+    <li><strong>W7-10</strong>：外链建设（客座博客、目录提交、社群分享）</li>
+    <li><strong>持续</strong>：Ahrefs / SEMrush 监控排名，迭代优化高潜力页面</li>
+  </ul>
+
+  <h3>渠道二：社交媒体（病毒传播潜力）</h3>
+  <div class="cols-2">
+    <div class="col-card">
+      <h4>TikTok / Instagram Reels</h4>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li><strong>内容方向</strong>："你的生肖隐藏性格"、"叫这个名字的人运势如何"、"每日五行运势"</li>
+        <li><strong>形式</strong>：短平快的测试类/结果类视频，引导用户去网站测全名</li>
+        <li><strong>节奏</strong>：Phase 2 开始，每周 3-5 条</li>
+        <li><strong>参考账号</strong>：@chinesenumerology、@mastertsai</li>
+      </ul>
+    </div>
+    <div class="col-card">
+      <h4>YouTube 长视频</h4>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li><strong>内容方向</strong>：八字入门教程、生肖年运详解、起名文化科普</li>
+        <li><strong>形式</strong>：5-15 分钟知识类视频，建立专业权威</li>
+        <li><strong>节奏</strong>：Phase 2 开始，每周 1 条</li>
+        <li><strong>转化</strong>：描述区放网站链接 + 免费八字测评</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>渠道三：联盟营销 + KOL 合作</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>合作类型</th>
+          <th>对象</th>
+          <th>分成模式</th>
+          <th>启动阶段</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>联盟客</strong></td>
+          <td>育儿博主、生活方式博主、华人社区</td>
+          <td>每单 20-30% 分成</td>
+          <td>Phase 2</td>
+        </tr>
+        <tr>
+          <td><strong>命理 KOL</strong></td>
+          <td>YouTube / TikTok 命理频道主</td>
+          <td>固定费用 + 分成</td>
+          <td>Phase 3</td>
+        </tr>
+        <tr>
+          <td><strong>品牌联名</strong></td>
+          <td>月子中心、母婴品牌、风水周边</td>
+          <td>互推 + 专属优惠码</td>
+          <td>Phase 3</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>渠道四：付费投放（验证后再放大）</h3>
+  <div class="callout callout-blue">
+    <div class="callout-title">💡 投放原则：先有 SEO 和社媒的自然转化数据，再开付费投放</div>
+    <p style="margin:0">MVP 阶段不要急着烧钱投放。先靠 SEO 和内容验证转化率和 LTV，算清楚"一个用户值多少钱"，再用付费投放放大。建议 <strong>MRR 达到 $1000+</strong> 后再启动付费投放测试。</p>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <caption>付费投放渠道优先级</caption>
+      <thead>
+        <tr>
+          <th>渠道</th>
+          <th>适合阶段</th>
+          <th>目标人群</th>
+          <th>预估 CAC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Google Search Ads</td>
+          <td>Phase 2</td>
+          <td>主动搜索"chinese name"的高意向用户</td>
+          <td>$15-30</td>
+        </tr>
+        <tr>
+          <td>Meta Ads (FB/IG)</td>
+          <td>Phase 3</td>
+          <td>兴趣定向（育儿、东方文化、占星）</td>
+          <td>$20-40</td>
+        </tr>
+        <tr>
+          <td>TikTok Ads</td>
+          <td>Phase 3</td>
+          <td>年轻父母、东方文化爱好者</td>
+          <td>$10-25</td>
+        </tr>
+        <tr>
+          <td>Reddit / Quora Ads</td>
+          <td>Phase 3</td>
+          <td>问答社区精准人群</td>
+          <td>$15-30</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 07 合规 -->
+<section id="compliance">
+  <h2>07 合规与风控</h2>
+  <p class="section-intro">海外做命理类产品，合规是生命线。App Store 审核、隐私法规、支付风控，每一项都可能让产品下架。</p>
+
+  <div class="cols-2">
+    <div class="col-card">
+      <h4>🛡️ App Store 审核红线</h4>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li>避免 "destiny"、"fortune telling"、"算命" 等敏感词</li>
+        <li>用 "personal insight"、"self-reflection"、"cultural guide" 等中性表达</li>
+        <li>必须标注 "For entertainment purposes only"</li>
+        <li>不能做确定性命运断言（"你一定会发财"是红线）</li>
+        <li>不能涉及医疗、投资、法律建议</li>
+        <li>准备好被拒 1-2 次，调整措辞后重新提交</li>
+      </ul>
+    </div>
+    <div class="col-card">
+      <h4>🔒 隐私合规</h4>
+      <ul style="margin:0;padding-left:20px;font-size:14px">
+        <li>GDPR（欧盟）：用户可申请数据导出和删除</li>
+        <li>CCPA（加州）：加州用户有数据知情权</li>
+        <li>出生信息（生辰八字）属于敏感个人信息，加密存储</li>
+        <li>隐私政策必须明确说明数据用途</li>
+        <li>邮箱订阅必须有退订选项</li>
+        <li>AI 生成内容必须标注 "AI-generated"</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>支付风控</h3>
+  <div class="callout callout-red">
+    <div class="callout-title">⚠️ 命理类产品是高风险商户，支付渠道可能随时冻结</div>
+    <p style="margin:0">Stripe、PayPal 对 "占卜/命理" 类商户有风控规则，高拒付率或投诉会导致账户冻结。必须提前做好风控措施。</p>
+  </div>
+
+  <ul class="checklist">
+    <li>清晰的退款政策，页面显眼位置展示</li>
+    <li>产品描述不夸大效果，避免"必发财""必转运"等承诺性语言</li>
+    <li>监控拒付率，保持在 0.5% 以下</li>
+    <li>准备备用支付渠道（PingPong + PayPal + Stripe 至少两条腿走路）</li>
+    <li>用户购买前明确确认"数字产品一经交付不退款"，但保留人性化例外通道</li>
+    <li>保留所有交易记录和沟通记录，应对争议仲裁</li>
+  </ul>
+
+  <h3>内容合规边界</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>可以说</th>
+          <th>不能说</th>
+          <th>原因</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Your favorable element is Water — reflection and calm decisions come naturally today"</td>
+          <td>"You will get rich this year"</td>
+          <td>能量趋势描述 vs 确定性预言</td>
+        </tr>
+        <tr>
+          <td>"This name complements your Wood element with supportive Water energy"</td>
+          <td>"This name will make you successful"</td>
+          <td>五行适配解释 vs 结果承诺</td>
+        </tr>
+        <tr>
+          <td>"For cultural reference, those born in the Year of the Rabbit are often associated with gentleness"</td>
+          <td>"Because you're a Rabbit, you must be gentle and shy"</td>
+          <td>文化参考 vs 绝对判定</td>
+        </tr>
+        <tr>
+          <td>"Based on your BaZi chart, your career theme for this year is growth and expansion"</td>
+          <td>"You will definitely get a promotion this year"</td>
+          <td>主题趋势 vs 具体事件预言</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 08 团队成本 -->
+<section id="team">
+  <h2>08 团队配置与成本估算</h2>
+  <p class="section-intro">MVP 阶段最小团队配置，验证 PMF 后再扩张。以海外远程团队为主，控制人力成本。</p>
+
+  <h3>MVP 阶段团队（2-3 人）</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>角色</th>
+          <th>职责</th>
+          <th>配置方式</th>
+          <th>月成本估算</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>产品 + 运营</strong></td>
+          <td>需求、内容、用户运营、增长</td>
+          <td>你自己 + 1 个助理</td>
+          <td>人力成本（不算现金支出）</td>
+        </tr>
+        <tr>
+          <td><strong>全栈开发</strong></td>
+          <td>前端 + 后端 + 部署</td>
+          <td>外包 / 远程兼职（东南亚/东欧）</td>
+          <td>$2,000-3,500</td>
+        </tr>
+        <tr>
+          <td><strong>命理顾问</strong></td>
+          <td>算法校验、内容审核、专家咨询供给</td>
+          <td>兼职 / 分成制</td>
+          <td>$500-1,000 + 提成</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>固定成本估算（月度）</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>项目</th>
+          <th>MVP 阶段</th>
+          <th>增长阶段</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>服务器 / 云服务</td>
+          <td>$50-100</td>
+          <td>$200-500</td>
+          <td>AWS / Vercel + Cloudflare</td>
+        </tr>
+        <tr>
+          <td>AI API 费用</td>
+          <td>$100-300</td>
+          <td>$500-2,000</td>
+          <td>按生成量计算，$0.002/1K tokens</td>
+        </tr>
+        <tr>
+          <td>邮件服务</td>
+          <td>$0-20</td>
+          <td>$50-200</td>
+          <td>Resend / SendGrid</td>
+        </tr>
+        <tr>
+          <td>域名 / SSL / CDN</td>
+          <td>$20-30</td>
+          <td>$50-100</td>
+          <td>Cloudflare 免费套餐够用</td>
+        </tr>
+        <tr>
+          <td>SEO 工具</td>
+          <td>$0-50</td>
+          <td>$100-200</td>
+          <td>Ahrefs / SEMrush</td>
+        </tr>
+        <tr>
+          <td>支付手续费</td>
+          <td>~3% 交易额</td>
+          <td>~3% 交易额</td>
+          <td>Stripe / PingPong</td>
+        </tr>
+        <tr>
+          <td><strong>合计（不含人力）</strong></td>
+          <td><strong>$200-500/月</strong></td>
+          <td><strong>$1,000-3,000/月</strong></td>
+          <td>随用量线性增长</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-title">💵 首次投入总预算估算</div>
+    <p style="margin:0"><strong>约 $5,000-8,000</strong>（不含你自己的人力成本）<br>
+    包含：MVP 开发（$3,000-5,000）+ 香港公司注册（~$700）+ 前 3 个月运营成本（$1,500）+ 备用金</p>
+  </div>
+</section>
+
+<!-- 09 KPI -->
+<section id="kpi">
+  <h2>09 关键指标与里程碑</h2>
+  <p class="section-intro">每个阶段有明确的北极星指标和验证标准，达不到就停下来调整，不要盲目往下做。</p>
+
+  <div class="table-wrapper">
+    <table>
+      <caption>分阶段 KPI 指标</caption>
+      <thead>
+        <tr>
+          <th>阶段</th>
+          <th>北极星指标</th>
+          <th>核心指标</th>
+          <th>及格线</th>
+          <th>优秀线</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag tag-gold">Phase 0 MVP</span></td>
+          <td>付费转化率</td>
+          <td>UV → 付费率</td>
+          <td>≥ 1.5%</td>
+          <td>≥ 3%</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>首单客单价</td>
+          <td>≥ $3</td>
+          <td>≥ $6</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>SEO 收录页面数</td>
+          <td>≥ 50</td>
+          <td>≥ 150</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-blue">Phase 1 会员</span></td>
+          <td>会员转化率</td>
+          <td>注册用户 → 月会员</td>
+          <td>≥ 3%</td>
+          <td>≥ 8%</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>次月留存率</td>
+          <td>≥ 25%</td>
+          <td>≥ 40%</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>ARPU</td>
+          <td>≥ $10</td>
+          <td>≥ $20</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-green">Phase 2 扩张</span></td>
+          <td>MRR</td>
+          <td>月经常性收入</td>
+          <td>≥ $500</td>
+          <td>≥ $2,000</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>高客单占比（$49+）</td>
+          <td>≥ 10%</td>
+          <td>≥ 25%</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>自然流量占比</td>
+          <td>≥ 40%</td>
+          <td>≥ 60%</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-yellow">Phase 3 iOS</span></td>
+          <td>MRR</td>
+          <td>月经常性收入</td>
+          <td>≥ $2,000</td>
+          <td>≥ $5,000</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>付费会员总数</td>
+          <td>≥ 200</td>
+          <td>≥ 500</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>LTV / CAC</td>
+          <td>≥ 2:1</td>
+          <td>≥ 4:1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-title">🚨 止损信号</div>
+    <p style="margin:0">如果 Phase 0 结束时（第 3 周末），付费转化率 < 1% 且 SEO 流量 < 100 UV/月，说明产品定位或定价有问题，<strong>不要继续往下做 Phase 1</strong>。停下来做用户访谈、调整定价或功能，验证通过后再推进。</p>
+  </div>
+</section>
+
+<!-- 10 风险 -->
+<section id="risk">
+  <h2>10 风险预案</h2>
+  <p class="section-intro">提前识别 8 个最大风险，每个都有应对方案。做最坏的打算，做最好的准备。</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:18%">风险</th>
+          <th style="width:8%">等级</th>
+          <th style="width:32%">影响</th>
+          <th style="width:42%">应对方案</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>App Store 被拒</strong></td>
+          <td><span class="tag tag-red">高</span></td>
+          <td>iOS 上架受阻，错过流量入口</td>
+          <td>1. 提交前严格审核文案，避免敏感词<br>2. 准备"娱乐/文化教育"两套说辞<br>3. 被拒后调整措辞，24h 内重新提交<br>4. 最坏情况：先深耕网页端 + 安卓</td>
+        </tr>
+        <tr>
+          <td><strong>支付账户冻结</strong></td>
+          <td><span class="tag tag-red">高</span></td>
+          <td>收入中断，资金链断裂</td>
+          <td>1. 同时接入 2 个以上支付渠道<br>2. 保持拒付率 < 0.5%<br>3. 不做夸大宣传，降低投诉率<br>4. 预留 3 个月运营现金</td>
+        </tr>
+        <tr>
+          <td><strong>八字算法不准确</strong></td>
+          <td><span class="tag tag-yellow">中高</span></td>
+          <td>口碑崩盘，专业度受质疑</td>
+          <td>1. MVP 阶段引入命理师人工校验<br>2. 建立用户反馈机制，快速修复<br>3. 参考多个权威排盘工具交叉验证<br>4. 明确标注"AI 生成，仅供参考"</td>
+        </tr>
+        <tr>
+          <td><strong>SEO 流量起不来</strong></td>
+          <td><span class="tag tag-yellow">中</span></td>
+          <td>获客成本过高，无法盈利</td>
+          <td>1. SEO 是慢活，给 6 个月时间窗口<br>2. 同步启动社媒和内容营销<br>3. 测试付费投放看 ROI<br>4. 探索联盟营销和 KOL 合作</td>
+        </tr>
+        <tr>
+          <td><strong>AI 生成质量不稳定</strong></td>
+          <td><span class="tag tag-yellow">中</span></td>
+          <td>用户体验差，退款率高</td>
+          <td>1. 精心设计 Prompt，加审核层<br>2. 建立名字质量评分机制<br>3. 高频差评的名字自动下线<br>4. 关键内容人工抽检</td>
+        </tr>
+        <tr>
+          <td><strong>付费转化率低</strong></td>
+          <td><span class="tag tag-yellow">中</span></td>
+          <td>流量变现效率低</td>
+          <td>1. A/B 测试定价（$2.99 vs $4.99 vs $9.99）<br>2. 优化落地页和转化漏斗<br>3. 增加免费试用/首单优惠<br>4. 强化社会证明（评价、案例）</td>
+        </tr>
+        <tr>
+          <td><strong>竞品抄袭 / 价格战</strong></td>
+          <td><span class="tag tag-blue">中低</span></td>
+          <td>市场竞争加剧，利润被压缩</td>
+          <td>1. 建立内容 SEO 壁垒（先发优势）<br>2. 深耕双语差异化，竞品难复制<br>3. 培养社区和品牌忠诚度<br>4. 快速迭代，保持功能领先</td>
+        </tr>
+        <tr>
+          <td><strong>监管政策变化</strong></td>
+          <td><span class="tag tag-blue">低</span></td>
+          <td>业务模式受冲击</td>
+          <td>1. 主体注册在香港，受英美法系管辖<br>2. 合规声明前置，降低风险<br>3. 分散市场，不依赖单一国家<br>4. 关注平台政策变化，快速响应</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-gold">
+    <div class="callout-title">🎯 写在最后：第一性原理</div>
+    <p style="margin:0">整个项目的核心假设只有一个：<strong>海外用户愿意为"基于八字的专业起名服务"付费</strong>。所有功能、定价、推广都是围绕这个假设展开的。Phase 0 的唯一目标就是验证这个假设——用最小成本、最快速度拿到答案。验证通过，all in 放大；验证不通过，及时止损换方向。这比任何完美的规划都重要。</p>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="report-footer">
+  <div class="footer-brand">Luckmi · 乐祺名</div>
+  <p style="margin:0">海外八字起名应用 · 全流程实操策略<br>Rooted in Chinese metaphysics, powered by BaZi wisdom.</p>
+  <p style="margin-top:16px;font-size:12px;color:rgba(255,255,255,0.4)">文档版本 v1.0 · 2026年8月</p>
+</footer>
+
+<script>
+// Smooth scroll for TOC links
+document.querySelectorAll('.toc a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const targetId = link.getAttribute('href').substring(1);
+    const target = document.getElementById(targetId);
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

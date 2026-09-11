@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+dist
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.DS_Store
+
+# Fate 参考仓库（仅离线查数据用，不入库）
+/fate
+inspect-output.txt
+
+# 字库构建产物（npm run build:char-meta 重新生成）
+/data/char-meta
