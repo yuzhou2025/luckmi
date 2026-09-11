@@ -13,3 +13,5 @@ inspect-output.txt
 
 # 字库构建产物（npm run build:char-meta 重新生成）
 /data/char-meta
+
+.trae/
