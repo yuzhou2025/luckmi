@@ -19,3 +19,5 @@ inspect-output.txt
 .env*
 
 supabase/.temp/
+
+supabase/.temp/
