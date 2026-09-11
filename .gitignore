@@ -15,3 +15,7 @@ inspect-output.txt
 /data/char-meta
 
 .trae/
+.vercel
+.env*
+
+supabase/.temp/

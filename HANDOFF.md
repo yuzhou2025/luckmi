@@ -27,7 +27,7 @@
 | **M1 八字引擎** | 排盘/神煞/五行量化/大运流年 | ✅ 完成 | 单元测试覆盖，引擎自测脚本通过 |
 | **M2 起名引擎** | 音译+意译管线/6 硬过滤/6 维评分 | ✅ 完成 | vitest 319/319 |
 | **M3 账号权限支付** | Supabase Auth + RLS + 角色裁剪 + Creem 沙盒闭环 | ✅ 完成（2026-09-11） | tsc 0 错 / vitest 319/319 / E2E 支付全通 / next build 生产构建通过 |
-| **M4 部署上线** | Vercel 部署 + luckmi.app 域名 + PWA | 🔄 进行中 | Vercel 已导入 GitHub repo，待填环境变量 + Deploy |
+| **M4 部署上线** | Vercel 部署 + PWA（自定义域名 luckmi.app 待绑定）| ✅ 主体完成（2026-09-11） | https://luckmi.vercel.app 200；27 页面；magic link Vercel 回调验证通过；PWA manifest+SW 已上线 |
 | **M5 报告线** | $169 Annual Report 完整交付 + 可溯源 PDF | ⏳ 未开始 | — |
 | **M6 SEO/免费工具** | 免费八字排盘页（简版引流）+ SEO 内容 + 站外引流 | ⏳ 未开始 | — |
 | **M7 真人咨询** | $199 WhatsApp 一对一（45min）SOP + 状态标记 + 退款 | ⏳ 未开始 | — |
@@ -38,17 +38,15 @@
 
 ## ③ 当前任务上下文
 
-**正在做**：M4 Vercel 部署——GitHub repo 已创建并推送，Vercel 已导入仓库，待用户在 Vercel Dashboard 填环境变量并 Deploy。
+**正在做**：M4 主体已上线 https://luckmi.vercel.app（Vercel CLI 部署，项目 yuzhou2025s-projects/luckmi）。Supabase Site URL + 3 条 Redirect URLs 已配置，线上 magic link 回调验证通过。
 
-**下一步**：
-1. Vercel Dashboard → Settings → Environment Variables：填入 `.env.example` 中所有 key（值从本地 `.env.local` 复制）
-2. Deploy → 拿到 Vercel 分配的 `xxx.vercel.app` 域名
-3. 把 `NEXT_PUBLIC_APP_URL` 改成实际域名 → Redeploy
-4. Supabase Dashboard → Auth → URL Configuration → 加 Vercel 域名到 Redirect URLs
-5. Creem Dashboard → Webhooks → 加生产 webhook URL `https://xxx.vercel.app/api/creem/webhook`
-6. 可选：绑定 luckmi.app 自定义域名
+**下一步（按优先级）**：
+1. 浏览器实测线上完整链路：访问 luckmi.vercel.app → magic link 登录 → 排盘 → checkout（沙盒测试卡 4242）
+2. Creem KYC（身份证 + 实名支付宝）→ 拿 live key + 5 个 live product_id → Vercel env 替换 → Creem webhook 配 `https://luckmi.vercel.app/api/creem/webhook`
+3. 可选：购买并绑定 luckmi.app 自定义域名（Vercel Settings → Domains，自动 HTTPS）
+4. 进入 **M5 报告线**：$169 Annual Report 完整交付 + 可溯源 PDF（CSS @media print）
 
-**阻塞点**：无。沙盒 key 够用，KYC 可稍后做（测试阶段不强制）。
+**阻塞点**：无。沙盒 key 支持全部测试；真实收款前才必须完成 KYC。
 
 ---
 
@@ -117,11 +115,12 @@ CREEM_PRODUCT_ANNUAL_REPORT         = prod_25t...
 CREEM_PRODUCT_CONSULT_WA            = prod_25t...
 ```
 
-### 待配置（生产环境）
-- **Vercel**：与 `.env.local` 同 12 个 key + CREEM_WEBHOOK_SECRET（KYC 后从 Creem Dashboard Settings→Webhooks 获取）
-- **Supabase**：Auth → URL Configuration 加 Vercel 域名到 Redirect URLs
-- **Creem**：Settings → Webhooks 加 `https://luckmi.app/api/creem/webhook`（或 Vercel 临时域名）
-- **Creem Live**：KYC 完成后换 API key + 5 个 live product_id
+### 生产环境（Vercel，已配置 2026-09-11）
+- **线上地址**：https://luckmi.vercel.app（Vercel project: yuzhou2025s-projects/luckmi）
+- **Vercel env**：10 个 key 已注入 production（不含 SUPABASE_DB_PASSWORD，生产不直连 DB）
+- **Supabase Auth**：Site URL=https://luckmi.vercel.app；Redirect URLs 已含 `https://luckmi.vercel.app/**` + en/zh callback
+- **部署方式**：`vercel deploy --prod --yes`（CLI 59.15.1，需先 `vercel link --project luckmi --yes`）
+- **待办**：Creem KYC 后替换 live key + 5 个 live product_id；配 webhook `https://luckmi.vercel.app/api/creem/webhook`；可选绑 luckmi.app 域名
 
 ### GitHub
 - **Repo**: https://github.com/yuzhou2025/luckmi
