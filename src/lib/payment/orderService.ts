@@ -26,11 +26,24 @@ export async function hasQuickFirstPurchase(userId: string): Promise<boolean> {
 export async function createPendingOrder(params: {
   userId: string;
   sku: string;
+  /** 首单价快照（仅用于日志/兼容旧签名）；pending 订单不写 first_purchase_done */
   isFirst: boolean;
   amount: number;
   paymentProvider: 'creem';
 }): Promise<string> {
   const admin = createAdminClient();
+
+  // 清理同用户同 SKU 的陈旧 pending 订单（未支付、无外部交易号，无保留价值）。
+  // 防止上游失败/用户放弃后脏数据堆积，以及重复点击产生多条 pending。
+  await admin
+    .from('orders')
+    .delete()
+    .eq('user_id', params.userId)
+    .eq('sku', params.sku)
+    .eq('status', 'pending');
+
+  // 注意：first_purchase_done 保持默认 false。
+  // 首单资格只在支付完成（markPaid）时按 paid 事实置位，pending 不参与唯一索引。
   const { data, error } = await admin
     .from('orders')
     .insert({
@@ -39,7 +52,6 @@ export async function createPendingOrder(params: {
       amount_usd: params.amount,
       status: 'pending',
       payment_provider: 'creem',
-      first_purchase_done: params.isFirst,
     })
     .select('id')
     .single();
@@ -71,18 +83,46 @@ export async function markPaidAndGrant(params: {
   const cfg: SkuConfig | undefined = SKU_MAP[order.sku];
   if (!cfg) throw new Error(`unknown sku in order: ${order.sku}`);
 
-  // 2) 更新订单状态
-  const { error: updErr } = await admin
+  // 2) 首单资格判定（quick）：当前不存在其他 paid 首单时，本单占据首单位。
+  //    并发支付时部分唯一索引只放行一条；失败者降级为普通 paid 单（价格快照已在 amount_usd）。
+  let claimFirst = false;
+  if (order.sku === 'quick' && !order.first_purchase_done) {
+    const { count } = await admin
+      .from('orders')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', order.user_id)
+      .eq('sku', 'quick')
+      .eq('first_purchase_done', true)
+      .eq('status', 'paid');
+    claimFirst = (count ?? 0) === 0;
+  }
+
+  // 3) 更新订单状态（+首单标记）
+  const paidPayload: Record<string, unknown> = {
+    status: 'paid',
+    provider_ref: params.providerRef,
+  };
+  if (claimFirst) paidPayload.first_purchase_done = true;
+
+  let { error: updErr } = await admin
     .from('orders')
-    .update({
-      status: 'paid',
-      provider_ref: params.providerRef,
-    })
+    .update(paidPayload)
     .eq('id', params.orderId)
     .neq('status', 'paid'); // 并发保护：只有非 paid 才更新
+
+  // 并发竞争：另一笔已抢下首单位 → 去掉首单标记重试
+  if (updErr && claimFirst && /unique|duplicate/i.test(updErr.message ?? '')) {
+    delete paidPayload.first_purchase_done;
+    const retry = await admin
+      .from('orders')
+      .update(paidPayload)
+      .eq('id', params.orderId)
+      .neq('status', 'paid');
+    updErr = retry.error;
+  }
   if (updErr) throw new Error(`markPaid failed: ${updErr.message}`);
 
-  // 3) 授予 entitlements
+  // 4) 授予 entitlements
   const expiresAt =
     cfg.durationDays !== null
       ? new Date(Date.now() + cfg.durationDays * 86_400_000).toISOString()

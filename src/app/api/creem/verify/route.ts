@@ -14,10 +14,10 @@ import { createAdminClient } from '@/lib/db/supabase';
 export const runtime = 'nodejs';
 
 const CREEM_API_KEY = process.env.CREEM_API_KEY ?? '';
-const CREEM_API_BASE =
-  process.env.NODE_ENV === 'production'
-    ? 'https://api.creem.io/v1'
-    : 'https://test-api.creem.io/v1';
+// 以 key 前缀区分 Creem 环境（沙盒 key creem_test_ → test-api；live key → 生产）
+const CREEM_API_BASE = CREEM_API_KEY.startsWith('creem_test_')
+  ? 'https://test-api.creem.io/v1'
+  : 'https://api.creem.io/v1';
 
 export async function GET(req: NextRequest) {
   const rc = await resolveRoleFromRequest(req);

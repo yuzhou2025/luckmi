@@ -311,7 +311,8 @@
     "otpSent": "登录链接已发送，请查收邮箱并点击链接完成登录。",
     "resend": "重新发送",
     "loggedInAs": "当前登录：{email}",
-    "loggingIn": "登录成功，正在返回首页…"
+    "loggingIn": "登录成功，正在返回首页…",
+    "callbackError": "登录失败，登录链接可能已过期，请重新获取登录链接。"
   },
   "pricing": {
     "title": "选择套餐",

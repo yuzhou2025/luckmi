@@ -41,10 +41,11 @@
 **正在做**：M4 主体已上线 https://luckmi.vercel.app（Vercel CLI 部署，项目 yuzhou2025s-projects/luckmi）。Supabase Site URL + 3 条 Redirect URLs 已配置，线上 magic link 回调验证通过。
 
 **下一步（按优先级）**：
-1. 浏览器实测线上完整链路：访问 luckmi.vercel.app → magic link 登录 → 排盘 → checkout（沙盒测试卡 4242）
-2. Creem KYC（身份证 + 实名支付宝）→ 拿 live key + 5 个 live product_id → Vercel env 替换 → Creem webhook 配 `https://luckmi.vercel.app/api/creem/webhook`
-3. 可选：购买并绑定 luckmi.app 自定义域名（Vercel Settings → Domains，自动 HTTPS）
-4. 进入 **M5 报告线**：$169 Annual Report 完整交付 + 可溯源 PDF（CSS @media print）
+1. Creem KYC（身份证 + 实名支付宝）→ 拿 live key + live product_id → Vercel env 替换（key 换 live 后 API/webhook 环境自动切换）→ Creem webhook 配 `https://luckmi.vercel.app/api/creem/webhook` 并加 CREEM_WEBHOOK_SECRET
+2. 可选：购买并绑定 luckmi.app 自定义域名（Vercel Settings → Domains，自动 HTTPS）
+3. 进入 **M5 报告线**：$169 Annual Report 完整交付 + 可溯源 PDF（CSS @media print）
+
+**2026-09-11 线上实测已修复 3 个真实缺陷**：① PKCE/implicit 回调不兼容（callback 重写）② Creem 环境误判（key 前缀判断）③ pending 占首单唯一索引（migration 0003）。线上链路已验证到 Creem 沙盒结账页 $2.99；E2E 全绿（320 测试）。
 
 **阻塞点**：无。沙盒 key 支持全部测试；真实收款前才必须完成 KYC。
 
@@ -183,4 +184,7 @@ node scripts/run-sql-migration.mjs supabase/migrations/xxx.sql
 | `amount_usd` pg 返回字符串，不是数字 | 比较时用 `parseFloat()` |
 | service_role key 必须在函数体内读取，不能在模块顶层 | createAdminClient() 内部读，不会打包到 client bundle |
 | middleware matcher 排除 API/静态资源/带后缀文件 | 否则 Next 编译会报错 |
-| Creem 生产未配置 WEBHOOK_SECRET 时 fail-closed（503） | webhook 路由已实现；开发环境无 secret 跳过验签 |
+| Creem 生产未配置 WEBHOOK_SECRET 时 fail-closed（503） | 已改为按 key 前缀判定：live 模式无 secret 才 503；沙盒允许无 secret（verify 兜底） |
+| **@supabase/ssr 默认 PKCE，忽略 implicit hash 链接**（2026-09-11 线上实测发现：magic link 回跳卡 "Signed in, redirecting…"） | browser client 设 `detectSessionInUrl:false`；callback 页显式双路处理：`?code` → exchangeCodeForSession；`#access_token` → setSession |
+| **Creem API 环境不能看 NODE_ENV**（Vercel 永远 production，test key 打生产 API → 401 Invalid API Key） | checkout/verify/webhook 一律按 `CREEM_API_KEY` 是否 `creem_test_` 前缀选 test-api.creem.io；换 live key 自动切 |
+| **pending 订单占首单唯一索引**（旧设计 pending 即写 first_purchase_done=true，上游失败后永久占位 → 再次下单 500 duplicate key） | migration 0003：索引仅约束 `status='paid'`；createPendingOrder 先删同用户同 SKU 陈旧 pending、插入不写首单标记；markPaid 时按 paid 事实置位，并发撞键降级 |

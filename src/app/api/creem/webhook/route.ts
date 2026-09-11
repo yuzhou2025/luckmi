@@ -21,7 +21,9 @@ import { createAdminClient } from '@/lib/db/supabase';
 export const runtime = 'nodejs';
 
 const CREEM_WEBHOOK_SECRET = process.env.CREEM_WEBHOOK_SECRET ?? '';
-const IS_PROD = process.env.NODE_ENV === 'production';
+// 以 Creem key 前缀判定是否真实收款模式：live 模式无 webhook secret 直接拒绝端点；
+// 沙盒（creem_test_）允许无 secret 解析（成功页 verify 轮询兜底）。
+const IS_CREEM_LIVE = !(process.env.CREEM_API_KEY ?? '').startsWith('creem_test_');
 
 type CreemEvent = {
   type: string;
@@ -35,8 +37,8 @@ type CreemEvent = {
 export async function POST(req: NextRequest) {
   const bodyText = await req.text();
 
-  // 1) 验签（生产无 secret 直接拒绝整个端点）
-  if (IS_PROD && !CREEM_WEBHOOK_SECRET) {
+  // 1) 验签（live 收款模式无 secret 直接拒绝整个端点）
+  if (IS_CREEM_LIVE && !CREEM_WEBHOOK_SECRET) {
     return NextResponse.json({ error: 'webhook secret not configured' }, { status: 503 });
   }
 

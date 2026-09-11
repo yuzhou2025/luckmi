@@ -19,10 +19,14 @@ const admin = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_RO
 });
 
 const email = process.argv[2] ?? 'luckmi_test_20260910@proton.me';
+// redirect 可用第二个参数或 REDIRECT_TO 环境变量覆盖，默认线上英文回调
+const redirectTo = process.argv[3]
+  ?? process.env.REDIRECT_TO
+  ?? 'https://luckmi.vercel.app/en/auth/callback';
 const { data, error } = await admin.auth.admin.generateLink({
   type: 'magiclink',
   email,
-  options: { redirectTo: 'http://localhost:3000/auth/callback' },
+  options: { redirectTo },
 });
 if (error) { console.error('FAIL:', error.message); process.exit(1); }
 console.log(data.properties.action_link);

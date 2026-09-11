@@ -20,7 +20,12 @@ let browserClient: ReturnType<typeof createSsrBrowserClient> | null = null;
 
 export function getBrowserClient() {
   if (!browserClient) {
-    browserClient = createSsrBrowserClient(url, anonKey);
+    // detectSessionInUrl:false — URL token 统一由 /auth/callback 页显式处理
+    // （PKCE ?code → exchangeCodeForSession；implicit #access_token → setSession），
+    // 避免自动检测与手动交换竞争导致 code 被消费两次。
+    browserClient = createSsrBrowserClient(url, anonKey, {
+      auth: { detectSessionInUrl: false },
+    });
   }
   return browserClient;
 }

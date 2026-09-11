@@ -33,7 +33,12 @@ async function main() {
     return 1;
   }
 
-  const sql = fs.readFileSync(path.join(process.cwd(), 'supabase/migrations/0001_init.sql'), 'utf8');
+  // 支持参数指定迁移文件：node scripts/run-sql-migration.mjs supabase/migrations/0003_xxx.sql
+  const migrationArg = process.argv[2]
+    ? path.resolve(process.cwd(), process.argv[2])
+    : path.join(process.cwd(), 'supabase/migrations/0001_init.sql');
+  const sql = fs.readFileSync(migrationArg, 'utf8');
+  console.log('migration file:', path.relative(process.cwd(), migrationArg));
   const hosts = [`aws-1-${REGION}`, `aws-0-${REGION}`];
   const ports = [6543, 5432];
 

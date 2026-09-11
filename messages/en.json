@@ -311,7 +311,8 @@
     "otpSent": "A login link has been sent. Please check your email and click the link to sign in.",
     "resend": "Resend",
     "loggedInAs": "Signed in as: {email}",
-    "loggingIn": "Signed in, redirecting to home…"
+    "loggingIn": "Signed in, redirecting to home…",
+    "callbackError": "Sign-in failed. The login link may have expired — please request a new one."
   },
   "pricing": {
     "title": "Choose Your Plan",

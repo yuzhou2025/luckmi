@@ -21,10 +21,11 @@ import { SKU_MAP } from '@/lib/payment/sku';
 export const runtime = 'nodejs';
 
 const CREEM_API_KEY = process.env.CREEM_API_KEY ?? '';
-const CREEM_API_BASE =
-  process.env.NODE_ENV === 'production'
-    ? 'https://api.creem.io/v1'
-    : 'https://test-api.creem.io/v1';
+// 以 key 前缀区分 Creem 环境（而非 NODE_ENV：Vercel 预览/生产均为 production，
+// 但沙盒阶段用 creem_test_ key）。换 live key 后自动切生产 API，无需改部署。
+const CREEM_API_BASE = CREEM_API_KEY.startsWith('creem_test_')
+  ? 'https://test-api.creem.io/v1'
+  : 'https://api.creem.io/v1';
 
 export async function POST(req: NextRequest) {
   const rc = await resolveRoleFromRequest(req);
